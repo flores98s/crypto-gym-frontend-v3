@@ -1,14 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import * as FaIcons from "react-icons/fa";
+
 function Sidebar() {
   return (
-    <div className="sidebar">
+    <div className="sidebar bg-gray-900">
       <ul>
         <li>
-          <Link to="/">Inicio</Link>
+          <NavLink exact activeClassName='active' to="/" className="flex items-center text-white">
+            <FaIcons.FaHome className="mr-3" />
+            Inicio
+          </NavLink>
         </li>
         <li>
-          <Link to="/clientes">Clientes</Link>
+          <NavLink exact activeClassName='active' to="/clientes" className="flex items-center text-white">
+            <FaIcons.FaUsers className="mr-3"/> Clientes
+          </NavLink>
         </li>
       </ul>
     </div>

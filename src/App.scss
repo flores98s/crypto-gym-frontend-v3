@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,600&display=swap');
 
 $light: #ffffff;
-$gray: #c4ccde;
+$gray: #5c5e63;
 
 *{
   margin: 0;
@@ -35,6 +35,12 @@ body{
       margin-bottom: 1rem;
       a{
         text-decoration: none;
+        &.active{
+          color: $light;
+          background-color: $gray;
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+        }
       }
     }
   }
