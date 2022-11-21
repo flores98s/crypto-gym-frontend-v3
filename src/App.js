@@ -1,21 +1,23 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import Navbar from "./components/Navbar";
+import NavbarNav from "./components/NavbarNav";
 import Sidebar from "./components/Sidebar";
 import Clientes from "../src/pages/Clientes";
+import Rutinas from "./pages/Rutinas";
 import Home from "../src/pages/Home";
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <div className="flexi">
         <Sidebar />
 
-        <div className="content">
+        <div className="content w-100">
+          <NavbarNav/>
           <Routes>
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/" element={<Home />} exact />
+            <Route path="/rutinas" element={<Rutinas/>}/>
           </Routes>
         </div>
       </div>
