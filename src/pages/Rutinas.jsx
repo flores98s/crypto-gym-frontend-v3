@@ -1,45 +1,56 @@
 import React from 'react'
+import {useState, useEffect} from 'react'
+import {Table} from 'react-bootstrap'
+
+let backendUrl =
+  "https://cryptogymbackend-production.up.railway.app/api/rutina/";
 
 function Rutinas() {
+    const [rutinas, setRutinas] = useState([]);
+
+    let getRutinas = async () => {
+        let response = await fetch(backendUrl);
+        let data = await response.json();
+        console.log(data);
+        return data;
+    };
+
+    useEffect(() => {
+        getRutinas().then((data) => setRutinas(data));
+    }, []);
+
+
   return (
     <div>
         <h1>Rutinas</h1>
-        <table>
+        <Table>
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
+                    <th>Tipo Rutina</th>
+                    <th>Cliente</th>
+                    <th>Empleado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Rutina 1</td>
-                    <td>Descripcion de la rutina 1</td>
-                    <td>
-                        <button>Editar</button>
-                        <button>Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Rutina 2</td>
-                    <td>Descripcion de la rutina 2</td>
-                    <td>
-                        <button>Editar</button>
-                        <button>Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Rutina 3</td>
-                    <td>Descripcion de la rutina 3</td>
-                    <td>
-                        <button>Editar</button>
-                        <button>Eliminar</button>
-                    </td>
-                </tr>
+                {rutinas.map((rutina) => (
+                    <tr id={rutina.id}>
+                        <td>{rutina.nombre}</td>
+                        <td>{rutina.tipoRutina}</td>
+                        <td>{rutina.cliente}</td>
+                        <td>{rutina.empleado}</td>
+                        <td>
+                            <button className="btn btn-danger mx-2">Eliminar</button>
+                            <button className="btn btn-info">Actualizar</button>
+                        </td>
+
+                    </tr>
+                ))}
+
             </tbody>
             
-        </table>
+        </Table>
     </div>
   )
 }
