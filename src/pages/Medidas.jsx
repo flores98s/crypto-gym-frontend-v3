@@ -6,8 +6,9 @@
 // let backendUrl =
 //     "https://cryptogymbackend-production.up.railway.app/api/medidas/";
 
-// function Medidas() {
-//     const [medidas, setMedidas] = useState([]);
+    
+function Medidas() {
+    const [medidas, setMedidas] = useState([]);
 
 //     let getMedidas = async () => {
 //         let response = await fetch(backendUrl);
