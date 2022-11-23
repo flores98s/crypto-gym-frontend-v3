@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import {Table} from 'react-bootstrap'
+import AgregarClienteDialog from "../components/dialogs/AgregarClienteDialog";
 
 let backendUrl = 
   "https://cryptogymbackend-production.up.railway.app/api/cliente/";
@@ -21,6 +22,7 @@ function Clientes() {
   return (
     <div>
       <h1>Clientes</h1>
+      <AgregarClienteDialog/>
       <Table>
         <thead>
           <tr>
@@ -38,7 +40,7 @@ function Clientes() {
               <td>{cliente.correo}</td>
                 <td> 
                     <button className="btn btn-danger mx-2">Eliminar</button>
-                    <button className="btn btn-info">Actualizar</button>
+                    <AgregarClienteDialog cliente={cliente} tipo={"editar"}/>
                 </td>
             </tr>
           ))}

@@ -11,6 +11,7 @@ import Clientes from "../src/pages/Clientes";
 import Rutinas from "./pages/Rutinas";
 import Home from "../src/pages/Home";
 import Empleados from "./pages/Empleados";
+import Medidas from "./pages/Medidas";
 
 let auth = true;
 let NavApp = () => {
@@ -25,6 +26,7 @@ let NavApp = () => {
           <Route path="/" element={<Home />} exact={true} />
           <Route path="/rutinas" element={<Rutinas />} />
           <Route path="/empleado" element={<Empleados />} />
+          <Route path="/medidas" element={<Medidas />} />
         </Routes>
       </div>
     </div>
