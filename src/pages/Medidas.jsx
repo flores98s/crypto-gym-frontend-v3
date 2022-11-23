@@ -6,6 +6,7 @@ import AgregarMedidaDialog from "../components/dialogs/AgregarMedidaDialog";
 let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/medidas/";
 
+    
 function Medidas() {
     const [medidas, setMedidas] = useState([]);
 
