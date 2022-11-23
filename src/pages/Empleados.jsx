@@ -17,8 +17,8 @@ function Empleados() {
     return data;
   };
 
-  function eliminarEmpleado(id) {
-    alert("Eliminar empleado con id: " + id);
+  function eliminarEmpleado(nombres,id) {
+    alert("Eliminar empleado: " + nombres);
     
     fetch(backendUrl + id, {
       method: "DELETE",
@@ -65,7 +65,7 @@ function Empleados() {
               <td>{empleado.genero}</td>
               <td className="flex items-center text-center">
                 <button className="btn btn-danger btn-sm mx-2 w-75"
-                  onClick={() => eliminarEmpleado(empleado.id)}
+                  onClick={() => eliminarEmpleado(empleado.nombres + " " + empleado.apellidos, empleado.id)}
                 >Eliminar</button>
                   <AgregarEmpleadoDialog empleado={empleado} tipo={'editar'} />
               </td>

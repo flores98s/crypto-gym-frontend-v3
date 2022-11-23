@@ -132,12 +132,45 @@ function ModalExample(props) {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
+              // Post to backendurl
+              if (props.tipo === "editar") {
+                fetch(backendUrl + props.empleado.id, {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(values),
+                })
+                  .then((response) => response.json())
+                  .then((data) => { 
+                    console.log(data);
+                  }
+                  )
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              } else {
+                fetch(backendUrl, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(values),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              }
+              setSubmitting(false);
+              toggle();
             }}
           >
+
+
             {({
               values,
               errors,
@@ -269,8 +302,8 @@ function ModalExample(props) {
                     value={values.genero}
                   >
                     <option value="">Seleccione</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
                   </Input>
                   <div className="text-danger">
                     {errors.genero && touched.genero && errors.genero}
@@ -287,8 +320,8 @@ function ModalExample(props) {
                     value={values.documento}
                   >
                     <option value="">Seleccione</option>
-                    <option value="Identidad">Identidad</option>
-                    <option value="Pasaporte">Pasaporte</option>
+                    <option value="1">Identidad</option>
+                    <option value="2">Pasaporte</option>
                   </Input>
                   <div className="text-danger">
                     {errors.documento && touched.documento && errors.documento}
