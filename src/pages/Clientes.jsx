@@ -7,6 +7,8 @@ let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/cliente/";
 
 function Clientes() {
+  // set title to Clientes
+  document.title = 'Clientes'
   const [clientes, setClientes] = useState([]);
 
   let getClientes = async () => {

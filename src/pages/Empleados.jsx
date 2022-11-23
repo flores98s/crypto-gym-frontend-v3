@@ -7,6 +7,8 @@ let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
 
 function Empleados() {
+  // set title to Empleados
+  document.title = "Empleados";
   const [empleados, setEmpleados] = useState([]);
 
   let getEmpleados = async () => {
@@ -14,6 +16,22 @@ function Empleados() {
     let data = await response.json();
     return data;
   };
+
+  function eliminarEmpleado(id) {
+    alert("Eliminar empleado con id: " + id);
+    
+    fetch(backendUrl + id, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.ok) {
+        console.log("Empleado eliminado");
+        getEmpleados().then((data) => {
+          setEmpleados(data);
+        });
+      }
+    });
+  }
+
 
   useEffect(() => {
     getEmpleados().then((data) => setEmpleados(data));
@@ -46,7 +64,9 @@ function Empleados() {
               <td>{empleado.fechaNacimiento}</td>
               <td>{empleado.genero}</td>
               <td className="flex items-center text-center">
-                <button className="btn btn-danger btn-sm mx-2 w-75">Eliminar</button>
+                <button className="btn btn-danger btn-sm mx-2 w-75"
+                  onClick={() => eliminarEmpleado(empleado.id)}
+                >Eliminar</button>
                   <AgregarEmpleadoDialog empleado={empleado} tipo={'editar'} />
               </td>
             </tr>

@@ -6,6 +6,8 @@ let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/rutina/";
 
 function Rutinas() {
+    // set title to Rutinas
+    document.title = 'Rutinas'
     const [rutinas, setRutinas] = useState([]);
 
     let getRutinas = async () => {

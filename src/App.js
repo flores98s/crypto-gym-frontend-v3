@@ -21,13 +21,15 @@ let NavApp = () => {
 
       <div className="content w-100">
         <NavbarNav />
-        <Routes>
-          <Route path="/clientes" element={<Clientes />} />
-          <Route path="/" element={<Home />} exact={true} />
-          <Route path="/rutinas" element={<Rutinas />} />
-          <Route path="/empleado" element={<Empleados />} />
-          <Route path="/medidas" element={<Medidas />} />
-        </Routes>
+        <div className="m-5">
+          <Routes>
+            <Route path="/clientes" element={<Clientes />} />
+            <Route path="/" element={<Home />} exact={true} />
+            <Route path="/rutinas" element={<Rutinas />} />
+            <Route path="/empleado" element={<Empleados />} />
+            <Route path="/medidas" element={<Medidas />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
