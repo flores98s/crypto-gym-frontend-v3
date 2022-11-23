@@ -48,6 +48,16 @@ function Sidebar() {
             <FaIcons.FaUsers className="mr-3" /> Empleados
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/medidas"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaUsers className="mr-3" /> Medidas
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
