@@ -9,7 +9,7 @@ function Sidebar() {
         <li>
           <NavLink
             exact
-            activeClassName="active"
+            activeclassname="active"
             to="/"
             className="flex items-center text-white"
           >
@@ -20,7 +20,7 @@ function Sidebar() {
         <li>
           <NavLink
             exact
-            activeClassName="active"
+            activeclassname="active"
             to="/clientes"
             className="flex items-center text-white"
           >
@@ -31,7 +31,7 @@ function Sidebar() {
         <li>
           <NavLink
             exact
-            activeClassName="active"
+            activeclassname="active"
             to="/rutinas"
             className="flex items-center text-white"
           >
@@ -41,7 +41,7 @@ function Sidebar() {
         <li>
           <NavLink
             exact
-            activeClassName="active"
+            activeclassname="active"
             to="/empleado"
             className="flex items-center text-white"
           >

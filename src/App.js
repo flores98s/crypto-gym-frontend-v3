@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import "./App.scss";
 import NavbarNav from "./components/NavbarNav";
 import Sidebar from "./components/Sidebar";
@@ -7,24 +12,27 @@ import Rutinas from "./pages/Rutinas";
 import Home from "../src/pages/Home";
 import Empleados from "./pages/Empleados";
 
-function App() {
+let auth = true;
+let NavApp = () => {
   return (
-    <Router>
-      <div className="flexi">
-        <Sidebar />
+    <div className="flexi">
+      <Sidebar />
 
-        <div className="content w-100">
-          <NavbarNav/>
-          <Routes>
-            <Route path="/clientes" element={<Clientes />} />
-            <Route path="/" element={<Home />} exact />
-            <Route path="/rutinas" element={<Rutinas/>}/>
-            <Route path="/empleado" element={<Empleados/>}/>
-          </Routes>
-        </div>
+      <div className="content w-100">
+        <NavbarNav />
+        <Routes>
+          <Route path="/clientes" element={<Clientes />} />
+          <Route path="/" element={<Home />} exact={true} />
+          <Route path="/rutinas" element={<Rutinas />} />
+          <Route path="/empleado" element={<Empleados />} />
+        </Routes>
       </div>
-    </Router>
+    </div>
   );
+};
+
+function App() {
+  return <Router>{auth ? <NavApp /> : <Navigate to="/login" />}</Router>;
 }
 
 export default App;

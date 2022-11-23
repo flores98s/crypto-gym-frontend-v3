@@ -35,7 +35,7 @@ function Rutinas() {
             </thead>
             <tbody>
                 {rutinas.map((rutina) => (
-                    <tr id={rutina.id}>
+                    <tr key={rutina.id}>
                         <td>{rutina.nombre}</td>
                         <td>{rutina.tipoRutina}</td>
                         <td>{rutina.cliente}</td>
