@@ -27,12 +27,12 @@ function Example(args) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
+            {/* <NavItem>
               <NavLink href="/components/">Components</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="">jklfj kdlfhsjdkl</NavLink>
-            </NavItem>
+            </NavItem> */}
             </Nav>
         </Collapse>
       </Navbar>

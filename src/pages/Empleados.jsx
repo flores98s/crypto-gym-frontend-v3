@@ -29,7 +29,7 @@ function Empleados() {
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Correo</th>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <th>Fecha de nacimiento</th>
             <th>Genero</th>
             <th>Acciones</th>
@@ -47,7 +47,7 @@ function Empleados() {
               <td>{empleado.genero}</td>
               <td className="flex items-center text-center">
                 <button className="btn btn-danger btn-sm mx-2 w-75">Eliminar</button>
-                  <AgregarEmpleadoDialog empleadoId={empleado.id} tipo={'editar'} />
+                  <AgregarEmpleadoDialog empleado={empleado} tipo={'editar'} />
               </td>
             </tr>
           ))}

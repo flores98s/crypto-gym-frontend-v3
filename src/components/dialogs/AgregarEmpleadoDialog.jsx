@@ -23,17 +23,7 @@ function ModalExample(props) {
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
 
-  let getEmpleado = async (id) => {
-    let response = await fetch(backendUrl + id);
-    let data = await response.json();
-    console.log(data);
-    return data;
-  };
-
-  useEffect(() => {
-    getEmpleado(props.empleadoID).then((data) => setEmpleado(data));
-  }, []);
-
+  
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -53,20 +43,20 @@ function ModalExample(props) {
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Agregar Empleado</ModalHeader>
+        <ModalHeader toggle={toggle}>{props.tipo === "editar" ? "Editar" : "Agregar"} Empleado</ModalHeader>
         <ModalBody>
           <Formik
           
             initialValues={{
-              nombres: "",
-              apellidos: "",
-              clave: "",
-              fechaNacimiento: null,
-              correo: "",
-              telefono: "",
-              numerodocumento: "",
-              genero: null,
-              documento: null,
+              nombres: props.empleado ? props.empleado.nombres : "",
+              apellidos: props.empleado ? props.empleado.apellidos : "",
+              clave: props.empleado ? props.empleado.clave : "",
+              fechaNacimiento: props.empleado ? props.empleado.fechaNacimiento : "",
+              correo: props.empleado ? props.empleado.correo : "",
+              telefono: props.empleado ? props.empleado.telefono : "",
+              numerodocumento: props.empleado ? props.empleado.numerodocumento : "",
+              genero: props.empleado ? props.empleado.genero : "",
+              documento: props.empleado ? props.empleado.documento : "",
             }}
             validate={(values) => {
               const errors = {};
@@ -131,7 +121,7 @@ function ModalExample(props) {
                 values.numerodocumento.length < 15 ||
                 values.numerodocumento.length > 15
               ) {
-                errors.numerodocumento = "Debe tener 13 caracteres";
+                errors.numerodocumento = "Debe tener 15 caracteres";
               }
               if (!values.genero) {
                 errors.genero = "Requerido";
