@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import CustomCard from "../components/Card";
 
 function Home() {
   // set title to Home
-  document.title = 'Home'
+  document.title = "Home";
   return (
-    <div>Home</div>
-  )
+    <div>
+      <h1>Inicio</h1>
+    </div>
+  );
 }
 
-export default Home
+export default Home;

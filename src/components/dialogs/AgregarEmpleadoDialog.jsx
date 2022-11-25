@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -15,15 +15,11 @@ import { FormGroup } from "react-bootstrap";
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
 
-
-
 function ModalExample(props) {
   const [modal, setModal] = useState(false);
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
-
-  
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -39,22 +35,26 @@ function ModalExample(props) {
     <div>
       <Button className="btn btn-info btn-sm mx-2 my-2" onClick={toggle}>
         {props.tipo === "editar" ? "Editar" : "Agregar"}
-
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>{props.tipo === "editar" ? "Editar" : "Agregar"} Empleado</ModalHeader>
+        <ModalHeader toggle={toggle}>
+          {props.tipo === "editar" ? "Editar" : "Agregar"} Empleado
+        </ModalHeader>
         <ModalBody>
           <Formik
-          
             initialValues={{
               nombres: props.empleado ? props.empleado.nombres : "",
               apellidos: props.empleado ? props.empleado.apellidos : "",
               clave: props.empleado ? props.empleado.clave : "",
-              fechaNacimiento: props.empleado ? props.empleado.fechaNacimiento : "",
+              fechaNacimiento: props.empleado
+                ? props.empleado.fechaNacimiento
+                : "",
               correo: props.empleado ? props.empleado.correo : "",
               telefono: props.empleado ? props.empleado.telefono : "",
-              numerodocumento: props.empleado ? props.empleado.numerodocumento : "",
+              numerodocumento: props.empleado
+                ? props.empleado.numerodocumento
+                : "",
               genero: props.empleado ? props.empleado.genero : "",
               documento: props.empleado ? props.empleado.documento : "",
             }}
@@ -62,13 +62,20 @@ function ModalExample(props) {
               const errors = {};
               if (!values.nombres) {
                 errors.nombres = "Requirido";
-              } else if (values.nombres.length < 3) {
-                errors.nombres = "Debe tener al menos 3 caracteres";
+              } else if (
+                values.nombres.length < 3 ||
+                values.nombres.length > 30
+              ) {
+                errors.nombres = "Debe tener al menos 3 caracteres y máximo 30";
               }
               if (!values.apellidos) {
                 errors.apellidos = "Requirido";
-              } else if (values.apellidos.length < 3) {
-                errors.apellidos = "Debe tener al menos 3 caracteres";
+              } else if (
+                values.apellidos.length < 3 ||
+                values.apellidos.length > 30
+              ) {
+                errors.apellidos =
+                  "Debe tener al menos 3 caracteres y máximo 30";
               }
               if (!values.clave) {
                 errors.clave = "Requirido";
@@ -84,14 +91,15 @@ function ModalExample(props) {
               }
               // check if fechaNacimiento is in the future
               else if (Date.parse(values.fechaNacimiento) > Date.now()) {
-                errors.fechaNacimiento = "Fecha invalida";
+                errors.fechaNacimiento =
+                  "Fecha invalida, no puede ser en el futuro";
               }
               // checj if fechaNacimiento is older than 18 years
               else if (
                 Date.now() - Date.parse(values.fechaNacimiento) <
                 568036800000
               ) {
-                errors.fechaNacimiento = "Debe ser mayor de edad";
+                errors.fechaNacimiento = "Debe ser mayor 18 años";
               }
               if (!values.correo) {
                 errors.correo = "Requerido";
@@ -100,13 +108,14 @@ function ModalExample(props) {
               } else if (
                 !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.correo)
               ) {
-                errors.correo = "Correo invalido";
+                errors.correo = "Correo inválido";
               }
               if (
                 // check regex ^[9|3|8][1-9]{7}$
                 !/^[2|9|3|8][1-9]{7}$/i.test(values.telefono)
               ) {
-                errors.telefono = "Telefono invalido";
+                errors.telefono =
+                  "Telefono inválido debe de comenzar con 2, 9, 3 u 8";
               } else if (!values.telefono) {
                 errors.telefono = "Requerido";
               } else if (
@@ -142,10 +151,9 @@ function ModalExample(props) {
                   body: JSON.stringify(values),
                 })
                   .then((response) => response.json())
-                  .then((data) => { 
+                  .then((data) => {
                     console.log(data);
-                  }
-                  )
+                  })
                   .catch((error) => {
                     console.error("Error:", error);
                   });
@@ -169,8 +177,6 @@ function ModalExample(props) {
               toggle();
             }}
           >
-
-
             {({
               values,
               errors,
@@ -260,12 +266,12 @@ function ModalExample(props) {
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="telefono">Telefono</Label>
+                  <Label for="telefono">Teléfono</Label>
                   <Input
                     type="text"
                     name="telefono"
                     id="telefono"
-                    placeholder="Telefono"
+                    placeholder="Teléfono"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.telefono}
@@ -329,7 +335,7 @@ function ModalExample(props) {
                 </FormGroup>
                 <FormGroup className="mt-2">
                   <Button type="submit" disabled={isSubmitting}>
-                    Agregar
+                    {isSubmitting ? "Enviando..." : "Enviar"}
                   </Button>
                 </FormGroup>
               </Form>

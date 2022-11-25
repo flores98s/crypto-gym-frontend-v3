@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react";
 import { useState, useEffect } from "react";
-import {Table} from 'react-bootstrap'
+import { Table } from "react-bootstrap";
 import AgregarClienteDialog from "../components/dialogs/AgregarClienteDialog";
 
-let backendUrl = 
+let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/cliente/";
 
 function Clientes() {
   // set title to Clientes
-  document.title = 'Clientes'
+  document.title = "Clientes";
   const [clientes, setClientes] = useState([]);
 
   let getClientes = async () => {
@@ -16,6 +16,20 @@ function Clientes() {
     let data = await response.json();
     console.log(data);
     return data;
+  };
+
+  function eliminarCliente(nombres, id) {
+    alert("Eliminar cliente: " + nombres);
+    fetch(backendUrl + id, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.ok) {
+        console.log("Cliente eliminado");
+        getClientes().then((data) => {
+          setClientes(data);
+        });
+      }
+    });
   }
 
   useEffect(() => {
@@ -24,7 +38,7 @@ function Clientes() {
   return (
     <div>
       <h1>Clientes</h1>
-      <AgregarClienteDialog/>
+      <AgregarClienteDialog />
       <Table>
         <thead>
           <tr>
@@ -40,10 +54,20 @@ function Clientes() {
               <td>{cliente.nombres}</td>
               <td>{cliente.apellidos}</td>
               <td>{cliente.correo}</td>
-                <td> 
-                    <button className="btn btn-danger mx-2">Eliminar</button>
-                    <AgregarClienteDialog cliente={cliente} tipo={"editar"}/>
-                </td>
+              <td className="flex items-center text-center">
+                <button
+                  className="btn btn-danger btn-sm mx-2 w-50"
+                  onClick={() =>
+                    eliminarCliente(
+                      cliente.nombres + " " + cliente.apellidos,
+                      cliente.id
+                    )
+                  }
+                >
+                  Eliminar
+                </button>
+                <AgregarClienteDialog cliente={cliente} tipo={"editar"} />
+              </td>
             </tr>
           ))}
         </tbody>
