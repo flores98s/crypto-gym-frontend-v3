@@ -16,6 +16,8 @@ let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
 
 function ModalExample(props) {
+  console.log(props.generos);
+  console.log(props.tipoDocumentoClientes);
   const [modal, setModal] = useState(false);
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
@@ -308,8 +310,9 @@ function ModalExample(props) {
                     value={values.genero}
                   >
                     <option value="">Seleccione</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Femenino</option>
+                    {/* {props.generos.map((genero) => (
+                      <option value={props.empleado.genero.id}>{props.empleado.genero.nombre}</option>
+                    ))} */}
                   </Input>
                   <div className="text-danger">
                     {errors.genero && touched.genero && errors.genero}
@@ -326,8 +329,9 @@ function ModalExample(props) {
                     value={values.documento}
                   >
                     <option value="">Seleccione</option>
-                    <option value="1">Identidad</option>
-                    <option value="2">Pasaporte</option>
+                    {/* {props.tipoDocumentoClientes.map((documento) => (
+                      <option value={props.empleado.documento.id}>{props.empleado.documento.nombre}</option>
+                    ))} */}
                   </Input>
                   <div className="text-danger">
                     {errors.documento && touched.documento && errors.documento}

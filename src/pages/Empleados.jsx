@@ -6,19 +6,37 @@ import AgregarEmpleadoDialog from "../components/dialogs/AgregarEmpleadoDialog";
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
 
+let backendUrlGenero= 
+  "https://cryptogymbackend-production.up.railway.app/api/tipogenero/";
+
+  let backendUrlTipoDocumentoCliente=
+  "https://cryptogymbackend-production.up.railway.app/api/tipoDocumentoCliente/";
+
 function Empleados() {
   // set title to Empleados
   document.title = "Empleados";
   const [empleados, setEmpleados] = useState([]);
+  const [generos, setGeneros] = useState([]);
+  const [tipoDocumentoClientes, setTipoDocumentoClientes] = useState([]);
 
   let getEmpleados = async () => {
     let response = await fetch(backendUrl);
     let data = await response.json();
     return data;
   };
+    let getGenero = async () => {
+      let response = await fetch(backendUrlGenero);
+      let data = await response.json();
+      return data;
+  };      
+  let getTipoDocumentoCliente = async () => {
+    let response = await fetch(backendUrlTipoDocumentoCliente);
+    let data = await response.json();
+    return data;
+};   
 
-  function eliminarEmpleado(nombres,id) {
-    alert("Eliminar empleado: " + nombres);
+  function eliminarEmpleado(id) {
+    alert("Eliminar empleado con id: " + id);
     
     fetch(backendUrl + id, {
       method: "DELETE",
@@ -32,14 +50,15 @@ function Empleados() {
     });
   }
 
-
   useEffect(() => {
     getEmpleados().then((data) => setEmpleados(data));
+    getGenero().then((data) => setGeneros(data));
+    getTipoDocumentoCliente().then((data) => setTipoDocumentoClientes(data));
   }, []);
   return (
     <div>
       <h1>Empleados</h1>
-      <AgregarEmpleadoDialog />
+      <AgregarEmpleadoDialog generos = {generos} tipoDocumentoClientes = {tipoDocumentoClientes}/>
       <Table>
         <thead>
           <tr>
@@ -65,7 +84,7 @@ function Empleados() {
               <td>{empleado.genero}</td>
               <td className="flex items-center text-center">
                 <button className="btn btn-danger btn-sm mx-2 w-75"
-                  onClick={() => eliminarEmpleado(empleado.nombres + " " + empleado.apellidos, empleado.id)}
+                  onClick={() => eliminarEmpleado(empleado.id)}
                 >Eliminar</button>
                   <AgregarEmpleadoDialog empleado={empleado} tipo={'editar'} />
               </td>
