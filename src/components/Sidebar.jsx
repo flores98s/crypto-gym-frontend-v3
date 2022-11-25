@@ -58,6 +58,16 @@ function Sidebar() {
             <FaIcons.FaUsers className="mr-3" /> Medidas
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/TiposMembresias"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaUsers className="mr-3" /> Tipos de Membresías
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
