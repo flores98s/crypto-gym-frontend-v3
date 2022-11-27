@@ -55,7 +55,7 @@ function Sidebar() {
             to="/medidas"
             className="flex items-center text-white"
           >
-            <FaIcons.FaUsers className="mr-3" /> Medidas
+            <FaIcons.FaRulerCombined className="mr-3" /> Medidas
           </NavLink>
         </li>
         <li>

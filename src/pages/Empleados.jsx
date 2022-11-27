@@ -36,20 +36,25 @@ function Empleados() {
 };   
 
   function eliminarEmpleado(id) {
-    alert("Eliminar empleado con id: " + id);
-    
-    fetch(backendUrl + id, {
-      method: "DELETE",
-    }).then((response) => {
-      if (response.ok) {
-        console.log("Empleado eliminado");
-        getEmpleados().then((data) => {
-          setEmpleados(data);
-        });
-      }
-    });
-  }
+    let confirmDelete = window.confirm("¿Está seguro de eliminar este empleado?");
 
+    if (confirmDelete) {
+      fetch(backendUrl + id, {
+        method: "DELETE",
+      }).then((response) => {
+        if (response.ok) {
+          console.log("Empleado eliminado");
+          getEmpleados().then((data) => {
+            setEmpleados(data);
+          });
+        }
+        else{
+          console.log("Error al eliminar empleado");
+        }
+      });
+
+  }
+}
   useEffect(() => {
     getEmpleados().then((data) => setEmpleados(data));
     getGenero().then((data) => setGeneros(data));
