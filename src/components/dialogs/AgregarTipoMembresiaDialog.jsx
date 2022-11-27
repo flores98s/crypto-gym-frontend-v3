@@ -16,7 +16,7 @@ let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/tiposmembresias/";
 
 function ModalExample(props) {
-    console.log(props.generos);
+    console.log(props);
     console.log(props.tipoDocumentoClientes);
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);

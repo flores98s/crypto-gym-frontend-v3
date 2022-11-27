@@ -13,6 +13,8 @@ import Home from "../src/pages/Home";
 import Empleados from "./pages/Empleados";
 import Medidas from "./pages/Medidas";
 import TiposMembresias from "./pages/TiposMembresias";
+import Cargo from "./pages/Cargos";
+
 
 let auth = true;
 let NavApp = () => {
@@ -30,6 +32,8 @@ let NavApp = () => {
             <Route path="/empleado" element={<Empleados />} />
             <Route path="/medidas" element={<Medidas />} />
             <Route path="/tiposmembresias" element={<TiposMembresias />} />
+            <Route path="/cargo" element={<Cargo />} />
+
           </Routes>
         </div>
       </div>
