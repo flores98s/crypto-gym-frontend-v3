@@ -8,20 +8,41 @@ import {
   Form,
   Label,
   Input,
+  Alert,
 } from "reactstrap";
 import { Formik } from "formik";
 import { FormGroup } from "react-bootstrap";
 
-let backendUrl =
-  "https://cryptogymbackend-production.up.railway.app/api/empleado/";
+let backendUrl = "https://cryptogymbackend-production.up.railway.app/api/";
+
+let getGeneros = async () => {
+  let response = await fetch(backendUrl + "tipogenerocliente/");
+  let data = await response.json();
+  return data;
+};
+let gettipodocumentoclientes = async () => {
+  let response = await fetch(backendUrl + "tipodocumentocliente/");
+  let data = await response.json();
+  return data;
+};
 
 function ModalExample(props) {
-  console.log(props.generos);
-  console.log(props.tipoDocumentoClientes);
   const [modal, setModal] = useState(false);
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
+  const [generos, setGeneros] = useState();
+  const [tipoDocumentos, setTipoDocumentos] = useState();
+  let [successMessage, setSuccessMessage] = useState();
+
+  useEffect(() => {
+    getGeneros().then((data) => {
+      setGeneros(data);
+      gettipodocumentoclientes().then((data) => {
+        setTipoDocumentos(data);
+      });
+    });
+  }, []);
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -145,7 +166,7 @@ function ModalExample(props) {
             onSubmit={(values, { setSubmitting }) => {
               // Post to backendurl
               if (props.tipo === "editar") {
-                fetch(backendUrl + props.empleado.id, {
+                fetch(backendUrl + "empleado/" + props.empleado.id + "/", {
                   method: "PUT",
                   headers: {
                     "Content-Type": "application/json",
@@ -155,12 +176,13 @@ function ModalExample(props) {
                   .then((response) => response.json())
                   .then((data) => {
                     console.log(data);
+                    setSuccessMessage("Empleado editado con éxito");
                   })
                   .catch((error) => {
                     console.error("Error:", error);
                   });
               } else {
-                fetch(backendUrl, {
+                fetch(backendUrl + "empleado", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -176,7 +198,10 @@ function ModalExample(props) {
                   });
               }
               setSubmitting(false);
-              toggle();
+              // wait 2 seconds and close modal
+              setTimeout(() => {
+                props.handleClose();
+              }, 2000);
             }}
           >
             {({
@@ -190,6 +215,11 @@ function ModalExample(props) {
               /* and other goodies */
             }) => (
               <Form onSubmit={handleSubmit}>
+                <Label>
+                  {setSuccessMessage && (
+                    <Alert color="success">{successMessage}</Alert>
+                  )}
+                </Label>
                 <FormGroup>
                   <Label for="nombres">Nombres</Label>
                   <Input
@@ -310,9 +340,11 @@ function ModalExample(props) {
                     value={values.genero}
                   >
                     <option value="">Seleccione</option>
-                    {/* {props.generos.map((genero) => (
-                      <option value={props.empleado.genero.id}>{props.empleado.genero.nombre}</option>
-                    ))} */}
+                    {generos.map((genero) => (
+                      <option key={genero.id} value={genero.id}>
+                        {genero.nombreGenero}
+                      </option>
+                    ))}
                   </Input>
                   <div className="text-danger">
                     {errors.genero && touched.genero && errors.genero}
@@ -329,9 +361,11 @@ function ModalExample(props) {
                     value={values.documento}
                   >
                     <option value="">Seleccione</option>
-                    {/* {props.tipoDocumentoClientes.map((documento) => (
-                      <option value={props.empleado.documento.id}>{props.empleado.documento.nombre}</option>
-                    ))} */}
+                    {tipoDocumentos.map((documento) => (
+                      <option key={documento.id} value={documento.id}>
+                        {documento.nombreDocumento}
+                      </option>
+                    ))}
                   </Input>
                   <div className="text-danger">
                     {errors.documento && touched.documento && errors.documento}

@@ -29,6 +29,7 @@ let getClientes = async () => {
 };
 
 function ModalExample(props) {
+  console.log(props.medida);
   const [modal, setModal] = useState(false);
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
@@ -152,10 +153,40 @@ function ModalExample(props) {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
+               // Post to backendurl
+               if (props.tipo === "editar") {
+                fetch(backendUrl + props.medida.id, {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(values),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              } else {
+                fetch(backendUrl, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(values),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              }
+              setSubmitting(false);
+              toggle();
             }}
             handleInputChange={(value) => {
               console.log(value);

@@ -13,8 +13,16 @@ import Home from "../src/pages/Home";
 import Empleados from "./pages/Empleados";
 import Medidas from "./pages/Medidas";
 import TiposMembresias from "./pages/TiposMembresias";
+import Login from "./pages/Login";
+import Cookies from "universal-cookie";
 
-let auth = true;
+let auth = false;
+const cookies = new Cookies();
+const authCookie = cookies.get("auth");
+if (authCookie) {
+  auth = true;
+}
+
 let NavApp = () => {
   return (
     <div className="flexi">
@@ -38,7 +46,17 @@ let NavApp = () => {
 };
 
 function App() {
-  return <Router>{auth ? <NavApp /> : <Navigate to="/login" />}</Router>;
+  return (
+    <Router>
+      <Routes>
+        {auth ? (
+          <Route path="*" element={<NavApp />} />
+        ) : (
+          <Route path="*" element={<Login />} />
+        )}
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
