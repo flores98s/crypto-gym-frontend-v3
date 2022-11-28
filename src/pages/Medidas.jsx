@@ -63,7 +63,7 @@ function Medidas() {
                 <button className="btn btn-danger btn-sm mx-2 w-75">
                   Eliminar
                 </button>
-                <AgregarMedidaDialog medidaId={medida.id} tipo={"editar"} />
+                <AgregarMedidaDialog medida={medida} tipo={"editar"} />
               </td>
             </tr>
           ))}

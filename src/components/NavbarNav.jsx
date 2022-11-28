@@ -13,13 +13,26 @@ import {
   DropdownItem,
   NavbarText,
 } from 'reactstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 
 function Example(args) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
+  let cerrarSesion = () => {
+    let confiramcion = window.confirm("¿Desea cerrar sesión?");
+    if (confiramcion) {
+      cookies.remove('auth');
+      window.location.href = '/';
+    }
+
+  }
   return (
+      
     <div>
      
       <Navbar color="light" light expand="md">
@@ -33,6 +46,7 @@ function Example(args) {
             <NavItem>
               <NavLink href="">jklfj kdlfhsjdkl</NavLink>
             </NavItem> */}
+            <button onClick={cerrarSesion}>Cerrar Sesion</button>
             </Nav>
         </Collapse>
       </Navbar>
