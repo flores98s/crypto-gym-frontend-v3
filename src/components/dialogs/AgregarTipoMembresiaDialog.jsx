@@ -16,8 +16,6 @@ let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/tiposmembresias/";
 
 function ModalExample(props) {
-    console.log(props);
-    console.log(props.tipoDocumentoClientes);
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);
     const [closeAll, setCloseAll] = useState(false);
@@ -41,7 +39,7 @@ function ModalExample(props) {
 
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>
-                    {props.tipo === "editar" ? "Editar" : "Agregar"} Empleado
+                    {props.tipo === "editar" ? "Editar" : "Agregar"} Membresia
                 </ModalHeader>
                 <ModalBody>
                     <Formik
@@ -95,7 +93,7 @@ function ModalExample(props) {
                                         toggle();
                                     });
                             } else {
-                                fetch(backendUrl, {
+                                fetch("https://cryptogymbackend-production.up.railway.app/api/tiposmembresia/", {
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",
