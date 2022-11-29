@@ -18,23 +18,22 @@ function TiposMembresias() {
     };
 
     function eliminarMembresia(id, nombre) {
-        alert("Eliminar membresía: " + nombre);
-        console.log(backendUrl + id);
-        fetch("https://cryptogymbackend-production.up.railway.app/api/tiposmembresias/" + id, {
-            method: "DELETE",
-        }).then((response) => {
-            if (response.ok) {
-                console.log("Membresía eliminada");
-                getMembresias().then((data) => {
-                    setMembresias(data);
-                });
-            }
-            else {
-                console.log("Error al eliminar membresía");
-                // TODO: mostrar mensaje de error
-                console.log(response);
-            }
-        });
+        let confirmar = window.confirm("¿Eliminar membresía: " + nombre + "?");
+        if (confirmar) {
+            fetch("https://cryptogymbackend-production.up.railway.app/api/tiposmembresias/" + id, {
+                method: "DELETE",
+            }).then((response) => {
+                if (response.ok) {
+                    console.log("Membresía eliminada");
+                    getMembresias().then((data) => {
+                        setMembresias(data);
+                    });
+                } else {
+                    console.log("Error al eliminar membresía");
+                }
+            });
+        }
+        
     }
 
     useEffect(() => {
