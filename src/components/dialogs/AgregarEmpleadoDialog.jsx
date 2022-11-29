@@ -9,40 +9,21 @@ import {
   Label,
   Input,
   Alert,
+  FormGroup,
+  Row,
+  Col,
+  Container,
 } from "reactstrap";
 import { Formik } from "formik";
-import { FormGroup } from "react-bootstrap";
 
 let backendUrl = "https://cryptogymbackend-production.up.railway.app/api/";
-
-let getGeneros = async () => {
-  let response = await fetch(backendUrl + "tipogenerocliente/");
-  let data = await response.json();
-  return data;
-};
-let gettipodocumentoclientes = async () => {
-  let response = await fetch(backendUrl + "tipodocumentocliente/");
-  let data = await response.json();
-  return data;
-};
 
 function ModalExample(props) {
   const [modal, setModal] = useState(false);
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
-  const [generos, setGeneros] = useState();
-  const [tipoDocumentos, setTipoDocumentos] = useState();
   let [successMessage, setSuccessMessage] = useState();
-
-  useEffect(() => {
-    getGeneros().then((data) => {
-      setGeneros(data);
-      gettipodocumentoclientes().then((data) => {
-        setTipoDocumentos(data);
-      });
-    });
-  }, []);
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -166,6 +147,11 @@ function ModalExample(props) {
             onSubmit={(values, { setSubmitting }) => {
               // Post to backendurl
               if (props.tipo === "editar") {
+                let url =
+                  "https://cryptogymbackend-production.up.railway.app/api/empleado/" +
+                  props.empleado.id;
+                console.log(url);
+                alert(JSON.stringify(values, null, 2));
                 fetch(backendUrl + "empleado/" + props.empleado.id + "/", {
                   method: "PUT",
                   headers: {
@@ -182,7 +168,11 @@ function ModalExample(props) {
                     console.error("Error:", error);
                   });
               } else {
-                fetch(backendUrl + "empleado", {
+                let url =
+                  "https://cryptogymbackend-production.up.railway.app/api/empleado/";
+                // alert values
+                alert(JSON.stringify(values, null, 2));
+                fetch(url, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -200,7 +190,7 @@ function ModalExample(props) {
               setSubmitting(false);
               // wait 2 seconds and close modal
               setTimeout(() => {
-                props.handleClose();
+                setCloseAll(true);
               }, 2000);
             }}
           >
@@ -216,166 +206,176 @@ function ModalExample(props) {
             }) => (
               <Form onSubmit={handleSubmit}>
                 <Label>
-                  {setSuccessMessage && (
+                  {/* show success mesage if it is not empty */}
+                  {successMessage && (
                     <Alert color="success">{successMessage}</Alert>
                   )}
                 </Label>
-                <FormGroup>
-                  <Label for="nombres">Nombres</Label>
-                  <Input
-                    type="text"
-                    name="nombres"
-                    id="nombres"
-                    placeholder="Nombres"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.nombres}
-                  />
-                  <div className="text-danger">
-                    {errors.nombres && touched.nombres && errors.nombres}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="apellidos">Apellidos</Label>
-                  <Input
-                    type="text"
-                    name="apellidos"
-                    id="apellidos"
-                    placeholder="Apellidos"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.apellidos}
-                  />
-                  <div className="text-danger">
-                    {errors.apellidos && touched.apellidos && errors.apellidos}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="clave">Clave</Label>
-                  <Input
-                    type="password"
-                    name="clave"
-                    id="clave"
-                    placeholder="Clave"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.clave}
-                  />
-                  <div className="text-danger">
-                    {errors.clave && touched.clave && errors.clave}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="fechaNacimiento">Fecha de Nacimiento</Label>
-                  <Input
-                    type="date"
-                    name="fechaNacimiento"
-                    id="fechaNacimiento"
-                    placeholder="Fecha de Nacimiento"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.fechaNacimiento}
-                  />
-                  <div className="text-danger">
-                    {errors.fechaNacimiento &&
-                      touched.fechaNacimiento &&
-                      errors.fechaNacimiento}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="correo">Correo</Label>
-                  <Input
-                    type="email"
-                    name="correo"
-                    id="correo"
-                    placeholder="Correo"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.correo}
-                  />
-                  <div className="text-danger">
-                    {errors.correo && touched.correo && errors.correo}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="telefono">Teléfono</Label>
-                  <Input
-                    type="text"
-                    name="telefono"
-                    id="telefono"
-                    placeholder="Teléfono"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.telefono}
-                  />
-                  <div className="text-danger">
-                    {errors.telefono && touched.telefono && errors.telefono}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="numerodocumento">Numero de Documento</Label>
-                  <Input
-                    type="text"
-                    name="numerodocumento"
-                    id="numerodocumento"
-                    placeholder="Numero de Documento"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.numerodocumento}
-                  />
-                  <div className="text-danger">
-                    {errors.numerodocumento &&
-                      touched.numerodocumento &&
-                      errors.numerodocumento}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="genero">Genero</Label>
-                  <Input
-                    type="select"
-                    name="genero"
-                    id="genero"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.genero}
-                  >
-                    <option value="">Seleccione</option>
-                    {generos.map((genero) => (
-                      <option key={genero.id} value={genero.id}>
-                        {genero.nombreGenero}
-                      </option>
-                    ))}
-                  </Input>
-                  <div className="text-danger">
-                    {errors.genero && touched.genero && errors.genero}
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="documento">Documento</Label>
-                  <Input
-                    type="select"
-                    name="documento"
-                    id="documento"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.documento}
-                  >
-                    <option value="">Seleccione</option>
-                    {tipoDocumentos.map((documento) => (
-                      <option key={documento.id} value={documento.id}>
-                        {documento.nombreDocumento}
-                      </option>
-                    ))}
-                  </Input>
-                  <div className="text-danger">
-                    {errors.documento && touched.documento && errors.documento}
-                  </div>
-                </FormGroup>
-                <FormGroup className="mt-2">
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Enviando..." : "Enviar"}
-                  </Button>
-                </FormGroup>
+                <Container>
+                  <Row>
+                    <Col>
+                      <FormGroup>
+                        <Label for="nombres">Nombres</Label>
+                        <Input
+                          type="text"
+                          name="nombres"
+                          id="nombres"
+                          placeholder="Nombres"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.nombres}
+                        />
+                        <div className="text-danger">
+                          {errors.nombres && touched.nombres && errors.nombres}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="apellidos">Apellidos</Label>
+                        <Input
+                          type="text"
+                          name="apellidos"
+                          id="apellidos"
+                          placeholder="Apellidos"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.apellidos}
+                        />
+                        <div className="text-danger">
+                          {errors.apellidos &&
+                            touched.apellidos &&
+                            errors.apellidos}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="clave">Clave</Label>
+                        <Input
+                          type="password"
+                          name="clave"
+                          id="clave"
+                          placeholder="Clave"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.clave}
+                        />
+                        <div className="text-danger">
+                          {errors.clave && touched.clave && errors.clave}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="fechaNacimiento">Fecha de Nacimiento</Label>
+                        <Input
+                          type="date"
+                          name="fechaNacimiento"
+                          id="fechaNacimiento"
+                          placeholder="Fecha de Nacimiento"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.fechaNacimiento}
+                        />
+                        <div className="text-danger">
+                          {errors.fechaNacimiento &&
+                            touched.fechaNacimiento &&
+                            errors.fechaNacimiento}
+                        </div>
+                      </FormGroup>
+                    </Col>
+                    <Col>
+                      <FormGroup>
+                        <Label for="correo">Correo</Label>
+                        <Input
+                          type="email"
+                          name="correo"
+                          id="correo"
+                          placeholder="Correo"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.correo}
+                        />
+                        <div className="text-danger">
+                          {errors.correo && touched.correo && errors.correo}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="telefono">Teléfono</Label>
+                        <Input
+                          type="text"
+                          name="telefono"
+                          id="telefono"
+                          placeholder="Teléfono"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.telefono}
+                        />
+                        <div className="text-danger">
+                          {errors.telefono &&
+                            touched.telefono &&
+                            errors.telefono}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="numerodocumento">Numero de Documento</Label>
+                        <Input
+                          type="text"
+                          name="numerodocumento"
+                          id="numerodocumento"
+                          placeholder="Numero de Documento"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.numerodocumento}
+                        />
+                        <div className="text-danger">
+                          {errors.numerodocumento &&
+                            touched.numerodocumento &&
+                            errors.numerodocumento}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="genero">Genero</Label>
+                        <Input
+                          type="select"
+                          name="genero"
+                          id="genero"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.genero}
+                        >
+                          <option value="">Seleccione</option>
+                          <option value="1">Masculino</option>
+                          <option value="2">Femenino</option>
+                        </Input>
+                        <div className="text-danger">
+                          {errors.genero && touched.genero && errors.genero}
+                        </div>
+                      </FormGroup>
+                    </Col>
+
+                    <FormGroup>
+                      <Label for="documento">Documento</Label>
+                      <Input
+                        type="select"
+                        name="documento"
+                        id="documento"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.documento}
+                      >
+                        <option value="">Seleccione</option>
+                        <option value="2">Identidad</option>
+                        <option value="1">Pasaporte</option>
+                      </Input>
+                      <div className="text-danger">
+                        {errors.documento &&
+                          touched.documento &&
+                          errors.documento}
+                      </div>
+                    </FormGroup>
+                    <FormGroup className="mt-2">
+                      <Button type="submit" disabled={isSubmitting}>
+                        {isSubmitting ? "Enviando..." : "Enviar"}
+                      </Button>
+                    </FormGroup>
+                  </Row>
+                </Container>
               </Form>
             )}
           </Formik>
