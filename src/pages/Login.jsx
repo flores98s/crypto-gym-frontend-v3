@@ -17,7 +17,7 @@ import Cookies from "universal-cookie";
 
 async function loginUser(credentials) {
   return fetch(
-    "https://cryptogymbackend-production.up.railway.app/api/loginCliente/",
+    "https://cryptogymbackend-production.up.railway.app/api/loginEmpleado/",
     {
       method: "POST",
       headers: {
@@ -50,7 +50,7 @@ function Login() {
                 validate={(values) => {
                   const errors = {};
                   if (!values.correo) {
-                    errors.correo = "Requirido";
+                    errors.correo = "Requerido";
                   } else if (
                     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
                       values.correo
@@ -59,7 +59,7 @@ function Login() {
                     errors.correo = "Correo Invalido";
                   }
                   if (!values.clave) {
-                    errors.clave = "Requirido";
+                    errors.clave = "Requerido";
                   }
                   return errors;
                 }}
@@ -72,7 +72,7 @@ function Login() {
                       window.location.href = "/";
                     }
                     else{
-                      // console.log("Login fallido");
+                      console.log("Login fallido");
                       setBackendErrors(data.error);
                     }
                     

@@ -6,11 +6,11 @@ import AgregarEmpleadoDialog from "../components/dialogs/AgregarEmpleadoDialog";
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
 
-let backendUrlGenero= 
+let backendUrlGenero =
   "https://cryptogymbackend-production.up.railway.app/api/tipogenero/";
 
-  let backendUrlTipoDocumentoCliente=
-  "https://cryptogymbackend-production.up.railway.app/api/tipoDocumentoCliente/";
+let backendUrlTipoDocumentoCliente =
+  "https://cryptogymbackend-production.up.railway.app/api/tipodocumentocliente/";
 
 function Empleados() {
   // set title to Empleados
@@ -24,19 +24,21 @@ function Empleados() {
     let data = await response.json();
     return data;
   };
-    let getGenero = async () => {
-      let response = await fetch(backendUrlGenero);
-      let data = await response.json();
-      return data;
-  };      
+  let getGenero = async () => {
+    let response = await fetch(backendUrlGenero);
+    let data = await response.json();
+    return data;
+  };
   let getTipoDocumentoCliente = async () => {
     let response = await fetch(backendUrlTipoDocumentoCliente);
     let data = await response.json();
     return data;
-};   
+  };
 
   function eliminarEmpleado(id) {
-    let confirmDelete = window.confirm("¿Está seguro de eliminar este empleado?");
+    let confirmDelete = window.confirm(
+      "¿Está seguro de eliminar este empleado?"
+    );
 
     if (confirmDelete) {
       fetch(backendUrl + id, {
@@ -47,14 +49,12 @@ function Empleados() {
           getEmpleados().then((data) => {
             setEmpleados(data);
           });
-        }
-        else{
+        } else {
           console.log("Error al eliminar empleado");
         }
       });
-
+    }
   }
-}
   useEffect(() => {
     getEmpleados().then((data) => setEmpleados(data));
     getGenero().then((data) => setGeneros(data));
@@ -63,7 +63,10 @@ function Empleados() {
   return (
     <div>
       <h1>Empleados</h1>
-      <AgregarEmpleadoDialog generos = {generos} tipoDocumentoClientes = {tipoDocumentoClientes}/>
+      <AgregarEmpleadoDialog
+        generos={generos}
+        tipoDocumentoClientes={tipoDocumentoClientes}
+      />
       <Table>
         <thead>
           <tr>
@@ -88,10 +91,18 @@ function Empleados() {
               <td>{empleado.fechaNacimiento}</td>
               <td>{empleado.genero}</td>
               <td className="flex items-center text-center">
-                <button className="btn btn-danger btn-sm mx-2 w-75"
+                <button
+                  className="btn btn-danger btn-sm mx-2 w-75"
                   onClick={() => eliminarEmpleado(empleado.id)}
-                >Eliminar</button>
-                  <AgregarEmpleadoDialog empleado={empleado} tipo={'editar'} />
+                >
+                  Eliminar
+                </button>
+                <AgregarEmpleadoDialog
+                  empleado={empleado}
+                  tipo={"editar"}
+                  generos={generos}
+                  tipoDocumentoClientes={tipoDocumentoClientes}
+                />
               </td>
             </tr>
           ))}
