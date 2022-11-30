@@ -21,6 +21,7 @@ function ModalExample(props) {
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
   const [messages, setMessages] = useState({});
+  const [dietas, setDietas] = useState();
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -31,6 +32,17 @@ function ModalExample(props) {
     setNestedModal(!nestedModal);
     setCloseAll(true);
   };
+
+  let getDietas = async () => {
+    let response = await fetch("https://cryptogymbackend-production.up.railway.app/api/asignaciondieta/");
+    let data = await response.json();
+    setDietas(data);
+  };
+
+  useEffect(() => {
+    getDietas();
+  }, []);
+console.log(props.dieta);
 
   return (
     <div>
@@ -45,33 +57,31 @@ function ModalExample(props) {
         <ModalBody>
           <Formik
             initialValues={{
-              nombreDieta: props.dieta
-                ? props.dieta.nombreDieta
+              nombre: props.dieta
+                ? props.dieta.nombre
                 : "",
               aisgnacionDieta: props.dieta ? props.dieta.asignacionDieta : "",
             }}
             validate={(values) => {
               const errors = {};
-              if (!values.nombreDieta) {
-                errors.nombreDieta = "Requerido";
+              if (!values.nombre) {
+                errors.nombre = "Requerido";
               } else if (
-                values.nombreDieta.length < 3 ||
-                values.nombreDieta.length > 50
+                values.nombre.length < 3 ||
+                values.nombre.length > 50
               ) {
-                errors.nombreDieta =
+                errors.nombre =
                   "Debe tener al menos 3 caracteres y máximo 50";
               }
               if (!values.asignacionDieta) {
                 errors.asignacionDieta = "Requerido";
-              } else if (values.asignacionDieta.length < 3) {
-                errors.asignacionDieta = "Debe tener al menos 3 caracteres";
               }
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
               console.log(values);
               if (props.tipo === "editar") {
-                fetch(backendUrl + props.dieta.id, {
+                fetch("https://cryptogymbackend-production.up.railway.app/api/dieta/" + props.dieta.id, {
                   method: "PUT",
                   headers: {
                     "Content-Type": "application/json",
@@ -93,7 +103,7 @@ function ModalExample(props) {
                   });
               } else {
                 fetch(
-                    "http://cryptogymbackend-production.up.railway.app/api/dieta/",
+                    "https://cryptogymbackend-production.up.railway.app/api/dieta/",
                   {
                     method: "POST",
                     headers: {
@@ -148,40 +158,49 @@ function ModalExample(props) {
                 )}
 
                 <FormGroup>
-                  <Label for="nombreDieta">Nombre</Label>
+                  <Label for="nombre">Nombre</Label>
                   <Input
                     type="text"
-                    name="nombreDieta"
-                    id="nombreDieta"
+                    name="nombre"
+                    id="nombre"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.nombreDieta}
+                    value={values.nombre}
                   />
                   <div className="text-danger">
-                    {errors.nombreDieta &&
-                      touched.nombreDieta &&
-                      errors.nombreDieta}
+                    {errors.nombre &&
+                      touched.nombre &&
+                      errors.nombre}
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="asignacionDieta">asignacionDieta</Label>
+                  <Label for="asignacionDieta">Asignación Dieta</Label>
                   <Input
-                    type="text"
+                    type="select"
                     name="asignacionDieta"
                     id="asignacionDieta"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.asignacionDieta}
-                  />
+                  >
+                    <option value="">Seleccione una opción</option>
+                    {dietas.map((dieta) => (
+                      <option value={dieta.id} key={dieta.id}>{dieta.comida}</option>
+                    ))}
+
+                  </Input>
+                  
                   <div className="text-danger">
                     {errors.asignacionDieta &&
                       touched.asignacionDieta &&
                       errors.asignacionDieta}
                   </div>
                 </FormGroup>
-                <Button type="submit" disabled={isSubmitting}>
+                <FormGroup className = "mt-2" >
+                <Button type="submit" disabled={isSubmitting} >
                   {props.tipo === "editar" ? "Editar" : "Agregar"}
                 </Button>
+                </FormGroup>
               </Form>
             )}
           </Formik>

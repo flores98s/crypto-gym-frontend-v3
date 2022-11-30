@@ -6,7 +6,7 @@ import AgregarDietaDialog from "../components/dialogs/AgregarDietaDialog";
 let backendUrl =
     "http://cryptogymbackend-production.up.railway.app/api/dieta/";
 
-function Dieta() {
+    export default function Dieta() {
     // set title to Empleados
     document.title = "Dieta";
     const [dietas, setDietas] = useState([]);
@@ -41,24 +41,24 @@ function Dieta() {
     }, []);
     return (
         <div>
-            <h1>Tipos de Membresías</h1>
+            <h1>Dietas</h1>
             <AgregarDietaDialog />
             <Table>
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Descripción</th>
+                        <th>Asignación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {dietas.map((dieta) => (
-                        <tr key={dietas.id}>
-                            <td>{dieta.nombreDieta}</td>
+                        <tr key={dieta.id}>
+                            <td>{dieta.nombre}</td>
                             <td>{dieta.asignacionDieta}</td>
                             <td className="flex items-center text-center">
                                 <button className="btn btn-danger btn-sm mx-2 w-75"
-                                    onClick={() => eliminarDieta(dieta.id, dieta.nombreDieta)}>
+                                    onClick={() => eliminarDieta(dieta.id, dieta.nombre)}>
                                     Eliminar</button>
                                 <AgregarDietaDialog dieta={dieta} tipo={'editar'} />
                             </td>
@@ -70,4 +70,3 @@ function Dieta() {
     );
 }
 
-export default Dietas;
