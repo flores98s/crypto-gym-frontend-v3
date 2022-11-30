@@ -14,6 +14,24 @@ function Medidas() {
     let data = await response.json();
     return data;
   };
+
+  function eliminarMedida(id, nombre) {
+    let confirmar = window.confirm("¿Eliminar medida: " + nombre + "?");
+    if (confirmar) {
+      fetch(backendUrl + id, {
+        method: "DELETE",
+      }).then((response) => {
+        if (response.ok) {
+          console.log("Medida eliminada");
+          getMedidas().then((data) => {
+            setMedidas(data);
+          });
+        } else {
+          console.log("Error al eliminar medida");
+        }
+      });
+    }
+  }
   useEffect(() => {
     getMedidas().then((data) => setMedidas(data));
   }, []);
@@ -60,7 +78,10 @@ function Medidas() {
               <td>{medida.pierna}</td>
               <td>{medida.pantorrilla}</td>
               <td className="flex items-center text-center">
-                <button className="btn btn-danger btn-sm mx-2 w-75">
+                <button
+                  className="btn btn-danger btn-sm mx-2 w-75"
+                  onCanPlay={() => eliminarMedida(medida.id, medida.fecha)}
+                >
                   Eliminar
                 </button>
                 <AgregarMedidaDialog medida={medida} tipo={"editar"} />

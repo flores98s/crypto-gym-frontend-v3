@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
+import * as RiIcons from "react-icons/ri";
 
 function Sidebar() {
   return (
@@ -66,6 +67,26 @@ function Sidebar() {
             className="flex items-center text-white"
           >
             <FaIcons.FaUsers className="mr-3" /> Empleados
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/dieta"
+            className="flex items-center text-white"
+          >
+            <RiIcons.RiBillLine className="mr-3" /> Dietas
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/factura"
+            className="flex items-center text-white"
+          >
+            <RiIcons.RiBillLine className="mr-3" /> Factura
           </NavLink>
         </li>
       </ul>

@@ -6,7 +6,7 @@ import AgregarDietaDialog from "../components/dialogs/AgregarDietaDialog";
 let backendUrl =
     "http://cryptogymbackend-production.up.railway.app/api/dieta/";
 
-function Dieta() {
+ export default function Dieta() {
     // set title to Empleados
     document.title = "Dieta";
     const [dietas, setDietas] = useState([]);
@@ -70,4 +70,3 @@ function Dieta() {
     );
 }
 
-export default Dietas;

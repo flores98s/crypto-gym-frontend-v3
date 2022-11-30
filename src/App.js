@@ -15,8 +15,10 @@ import Medidas from "./pages/Medidas";
 import TiposMembresias from "./pages/TiposMembresias";
 import Login from "./pages/Login";
 import Cookies from "universal-cookie";
-import AsignacionRutina from "./pages/AsignacionRutina";
+// import AsignacionRutina from "./pages/AsignacionRutina";
 import Cargo from "./pages/Cargos";
+import Factura from "./pages/Factura";
+import Dietas from "./pages/Dietas";
 
 let auth = false;
 const cookies = new Cookies();
@@ -41,7 +43,9 @@ let NavApp = () => {
             <Route path="/medidas" element={<Medidas />} />
             <Route path="/tiposmembresias" element={<TiposMembresias />} />
             <Route path="/cargo" element={<Cargo />} />
-            <Route path="/asignacionrutina" element={<AsignacionRutina />} />
+            {/* <Route path="/asignacionrutina" element={<AsignacionRutina />} /> */}
+            <Route path="/factura" element={<Factura />} />
+            <Route path="/dietas" element={<Dietas/>} />
           </Routes>
         </div>
       </div>
