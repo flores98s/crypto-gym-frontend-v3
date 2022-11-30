@@ -36,7 +36,7 @@ function Sidebar() {
             to="/rutinas"
             className="flex items-center text-white"
           >
-            <FaIcons.FaUsers className="mr-3" /> Rutinas
+            <FaIcons.FaBiking className="mr-3" /> Rutinas
           </NavLink>
         </li>
         <li>
@@ -56,7 +56,7 @@ function Sidebar() {
             to="/TiposMembresias"
             className="flex items-center text-white"
           >
-            <FaIcons.FaUsers className="mr-3" /> Tipos de Membresías
+            <FaIcons.FaSketch className="mr-3" /> Tipos de Membresías
           </NavLink>
         </li>
         <li>
@@ -66,7 +66,7 @@ function Sidebar() {
             to="/empleado"
             className="flex items-center text-white"
           >
-            <FaIcons.FaUsers className="mr-3" /> Empleados
+            <FaIcons.FaRegIdBadge className="mr-3" /> Empleados
           </NavLink>
         </li>
         <li>
@@ -87,6 +87,36 @@ function Sidebar() {
             className="flex items-center text-white"
           >
             <RiIcons.RiBillLine className="mr-3" /> Factura
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/cargo"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaIdCardAlt className="mr-3" /> Cargos
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/asignacionrutina"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaDumbbell className="mr-3" /> Asignación de Rutinas
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/parametrosfactura"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaTools className="mr-3" /> Parametros Factura
           </NavLink>
         </li>
       </ul>
