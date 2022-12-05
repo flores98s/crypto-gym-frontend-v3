@@ -119,6 +119,36 @@ function Sidebar() {
             <FaIcons.FaTools className="mr-3" /> Parametros Factura
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/empleadocargo"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaUserTie className="mr-3" /> Empleado Cargo
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/detalleplanilla"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaUserTie className="mr-3" /> Detalle Planilla
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
+            to="/planilla"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaUserTie className="mr-3" /> Planilla
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

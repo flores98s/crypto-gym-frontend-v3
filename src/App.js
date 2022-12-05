@@ -20,6 +20,10 @@ import Cargo from "./pages/Cargos";
 import Factura from "./pages/Factura";
 import Dietas from "./pages/Dietas";
 import ParametrosFactura from "./pages/ParametrosFactura";
+import EmpleadoCargo from "./pages/EmpleadoCargo";
+import DetallePlanilla from "./pages/DetallePlanilla";
+import Planilla from "./pages/Planilla";
+
 
 let auth = false;
 const cookies = new Cookies();
@@ -48,6 +52,9 @@ let NavApp = () => {
             <Route path="/factura" element={<Factura />} />
             <Route path="/dietas" element={<Dietas/>} />
             <Route path="/parametrosfactura" element={<ParametrosFactura />} />
+            <Route path="/empleadocargo" element={<EmpleadoCargo />} />
+            <Route path="/detalleplanilla" element={<DetallePlanilla />} />
+            <Route path="/planilla" element={<Planilla />} />
           </Routes>
         </div>
       </div>
