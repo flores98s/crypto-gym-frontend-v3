@@ -23,6 +23,9 @@ import ParametrosFactura from "./pages/ParametrosFactura";
 import EmpleadoCargo from "./pages/EmpleadoCargo";
 import DetallePlanilla from "./pages/DetallePlanilla";
 import Planilla from "./pages/Planilla";
+import LoginEmpleado from "./pages/LoginEmpleado";
+import SidebarCliente from "./components/SidebarCliente";
+import MembresiaCliente from "./pages/clientes/Membresias";
 
 
 let auth = false;
@@ -35,8 +38,8 @@ if (authCookie) {
 let NavApp = () => {
   return (
     <div className="flexi">
-      <Sidebar />
-
+      {/* <Sidebar /> */}
+      <SidebarCliente />
       <div className="content w-100">
         <NavbarNav />
         <div className="m-5">
@@ -55,6 +58,8 @@ let NavApp = () => {
             <Route path="/empleadocargo" element={<EmpleadoCargo />} />
             <Route path="/detalleplanilla" element={<DetallePlanilla />} />
             <Route path="/planilla" element={<Planilla />} />
+            {/* esta es la ruta de cliente */}
+            <Route path="/membresiacliente" element={<MembresiaCliente />} />
           </Routes>
         </div>
       </div>
@@ -69,7 +74,10 @@ function App() {
         {auth ? (
           <Route path="*" element={<NavApp />} />
         ) : (
+          // <Routes>
           <Route path="*" element={<Login />} />
+          // <Route path="/LoginEmpleado" element={<loginEmpleado />} />
+          // </Routes>
         )}
       </Routes>
     </Router>

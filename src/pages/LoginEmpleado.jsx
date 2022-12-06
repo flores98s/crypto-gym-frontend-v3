@@ -17,7 +17,7 @@ import Cookies from "universal-cookie";
 
 async function loginUser(credentials) {
   return fetch(
-    "https://cryptogymbackend-production.up.railway.app/api/loginCliente/",
+    "https://cryptogymbackend-production.up.railway.app/api/loginEmpleado/",
     {
       method: "POST",
       headers: {
@@ -28,7 +28,7 @@ async function loginUser(credentials) {
   ).then((data) => data.json());
 }
 
-function Login() {
+function LoginEmpleado() {
   const [intentos, setIntentos] = useState(0);
   const [backendErrors, setBackendErrors] = useState([]);
   const [data, setData] = useState([]);
@@ -67,14 +67,9 @@ function Login() {
                   loginUser(values).then((data) => {
                     console.log(typeof data);
                     console.log(data);
-                    alert(
-                      JSON.stringify(data, null, 2)
-                    )
                     if (data[0]){
-                      cookies.set("auth", data[0].auth, { path: "/" });
-                      cookies.set("id", data[0].data.id, {path: "/"});
+                      cookies.set("auth", data[0].clave, { path: "/" });
                       window.location.href = "/";
-
                     }
                     else{
                       console.log("Login fallido");
@@ -145,4 +140,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginEmpleado;
