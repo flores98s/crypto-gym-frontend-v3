@@ -97,6 +97,7 @@ function ModalExample(props) {
                                             toggle();
                                         }, 2000);
                                     })
+                                    
                             } else {
                                 fetch(
                                   "https://cryptogymbackend-production.up.railway.app/api/asignacionrutina/",
