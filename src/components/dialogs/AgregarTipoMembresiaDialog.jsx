@@ -65,7 +65,9 @@ function ModalExample(props) {
               if (!values.precio) {
                 errors.precio = "Requerido";
               } else if (values.precio < 0) {
-                errors.precio = "Debe ser mayor a 0";
+                errors.precio = "Debe ser mayor a Lps.0";
+              } else if (values.precio > 10000) {
+                errors.precio = "El precio debe ser menor a Lps.10000";
               }
               // check if precio is number
               else if (isNaN(values.precio)) {
