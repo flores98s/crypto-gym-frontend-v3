@@ -73,7 +73,7 @@ function Sidebar() {
           <NavLink
             exact
             activeclassname="active"
-            to="/dieta"
+            to="/dietas"
             className="flex items-center text-white"
           >
             <RiIcons.RiBillLine className="mr-3" /> Dietas

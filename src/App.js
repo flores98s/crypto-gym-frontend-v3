@@ -38,8 +38,8 @@ if (authCookie) {
 let NavApp = () => {
   return (
     <div className="flexi">
-      {/* <Sidebar /> */}
-      <SidebarCliente />
+      <Sidebar />
+      {/* <SidebarCliente /> */}
       <div className="content w-100">
         <NavbarNav />
         <div className="m-5">
