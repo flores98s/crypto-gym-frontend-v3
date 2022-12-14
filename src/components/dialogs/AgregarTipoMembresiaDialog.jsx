@@ -77,6 +77,8 @@ function ModalExample(props) {
                 errors.descripcion = "Requerido";
               } else if (values.descripcion.length < 3) {
                 errors.descripcion = "Debe tener al menos 3 caracteres";
+              } else if (values.descripcion.length > 100) {
+                errors.descripcion = "Debe tener máximo 100 caracteres";
               }
               return errors;
             }}
@@ -205,9 +207,11 @@ function ModalExample(props) {
                       errors.descripcion}
                   </div>
                 </FormGroup>
+                <FormGroup className="mt-2">
                 <Button type="submit" disabled={isSubmitting}>
                   {props.tipo === "editar" ? "Editar" : "Agregar"}
                 </Button>
+                </FormGroup>
               </Form>
             )}
           </Formik>
