@@ -24,6 +24,7 @@ function ModalExample(props) {
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
   let [successMessage, setSuccessMessage] = useState();
+  let [formatoDocumento, setFormatoDocumento] = useState("XXXX-XXXX-XXXXX");
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -167,6 +168,9 @@ function ModalExample(props) {
                   .then((data) => {
                     console.log(data);
                     setSuccessMessage("Empleado editado con éxito");
+                    setTimeout(() => {
+                      toggle();
+                    }, 2000);
                   })
                   .catch((error) => {
                     console.error("Error:", error);
@@ -187,6 +191,10 @@ function ModalExample(props) {
                   .then((response) => response.json())
                   .then((data) => {
                     console.log(data);
+                    setSuccessMessage("Empleado creado con éxito");
+                    setTimeout(() => {
+                      toggle();
+                    }, 2000);
                   })
                   .catch((error) => {
                     console.error("Error:", error);
@@ -317,23 +325,7 @@ function ModalExample(props) {
                             errors.telefono}
                         </div>
                       </FormGroup>
-                      <FormGroup>
-                        <Label for="numerodocumento">Numero de Documento</Label>
-                        <Input
-                          type="text"
-                          name="numerodocumento"
-                          id="numerodocumento"
-                          placeholder="Numero de Documento"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.numerodocumento}
-                        />
-                        <div className="text-danger">
-                          {errors.numerodocumento &&
-                            touched.numerodocumento &&
-                            errors.numerodocumento}
-                        </div>
-                      </FormGroup>
+                      
                       <FormGroup>
                         <Label for="genero_id">Genero</Label>
                         <Input
@@ -352,6 +344,7 @@ function ModalExample(props) {
                           {errors.genero_id && touched.genero_id && errors.genero_id}
                         </div>
                       </FormGroup>
+
                     </Col>
 
                     <FormGroup>
@@ -365,8 +358,8 @@ function ModalExample(props) {
                         value={values.documento_id}
                       >
                         <option value="">Seleccione</option>
-                        <option value="2">Identidad</option>
-                        <option value="1">Pasaporte</option>
+                        <option value="1">Identidad</option>
+                        <option value="2">Pasaporte</option>
                       </Input>
                       <div className="text-danger">
                         {errors.documento_id &&
@@ -374,6 +367,23 @@ function ModalExample(props) {
                           errors.documento_id}
                       </div>
                     </FormGroup>
+                    <FormGroup>
+                        <Label for="numerodocumento">Numero de Documento</Label>
+                        <Input
+                          type="text"
+                          name="numerodocumento"
+                          id="numerodocumento"
+                          placeholder={values.documento_id === "1" ? "0000-0000-00000" : "X000000"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.numerodocumento}
+                        />
+                        <div className="text-danger">
+                          {errors.numerodocumento &&
+                            touched.numerodocumento &&
+                            errors.numerodocumento}
+                        </div>
+                      </FormGroup>
                     <FormGroup className="mt-2">
                       <Button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? "Enviando..." : "Enviar"}
