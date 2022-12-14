@@ -66,7 +66,7 @@ function ModalExample(props) {
             validate={(values) => {
               const errors = {};
               if (!values.nombres) {
-                errors.nombres = "Requirido";
+                errors.nombres = "Requerido";
               } else if (
                 values.nombres.length < 3 ||
                 values.nombres.length > 30
