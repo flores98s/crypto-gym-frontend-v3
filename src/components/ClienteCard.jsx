@@ -8,21 +8,20 @@ import {
   Button,
 } from "reactstrap";
 
-function ClienteCard() {
+function ClienteCard(props) {
   return (
     <Card
       style={{
-        width: "10rem",
+        width: "1rem",
       }}
     >
       <CardBody>
-        <CardTitle tag="h5">Card title</CardTitle>
-        <CardSubtitle className="mb-2 text-muted" tag="h6">
+        <CardTitle tag="h3">{props.titulo}</CardTitle>
+        {/* <CardSubtitle className="mb-2 text-muted" tag="h6">
           Card subtitle
-        </CardSubtitle>
+        </CardSubtitle> */}
         <CardText>
-          Some quick example text to build on the card title and make up the
-          bulk of the card‘s content.
+          {props.descripcion}
         </CardText>
         <Button>Button</Button>
       </CardBody>

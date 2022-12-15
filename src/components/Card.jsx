@@ -12,7 +12,7 @@ import {
   Col,
 } from "reactstrap";
 
-function CustomCard() {
+function CustomCard(props) {
   return (
     <div>
       <Container>
@@ -24,33 +24,11 @@ function CustomCard() {
               }}
             >
               <CardBody>
-                <CardTitle tag="h5">Card title</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
+                <CardTitle tag="h5">{props.titulo}</CardTitle>
+                {/* <CardSubtitle className="mb-2 text-muted" tag="h6">
                   Card subtitle
-                </CardSubtitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card‘s content.
-                </CardText>
-                <Button>Button</Button>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col>
-            <Card
-              style={{
-                width: "18rem",
-              }}
-            >
-              <CardBody>
-                <CardTitle tag="h5">Card title</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  Card subtitle
-                </CardSubtitle>
-                <CardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card‘s content.
-                </CardText>
+                </CardSubtitle> */}
+                <CardText>{props.descripcion}</CardText>
                 <Button>Button</Button>
               </CardBody>
             </Card>

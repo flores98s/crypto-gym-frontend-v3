@@ -22,7 +22,7 @@ function SidebarCliente() {
           <NavLink
             exact
             activeclassname="active"
-            to="/rutinas"
+            to="/rutinascliente"
             className="flex items-center text-white"
           >
             <FaIcons.FaHome className="mr-3" />
