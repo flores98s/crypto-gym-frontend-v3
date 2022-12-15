@@ -130,9 +130,9 @@ function Login() {
                       <Button type="submit">Ingresar</Button>
                     </FormGroup>
                     <FormGroup className="mt-2">
-                      <Label>
+                      {/* <Label>
                         Ingresar como <a href="/loginAdmin">Administrador</a>
-                      </Label>
+                      </Label> */}
                     </FormGroup>
                   </Form>
                 )}

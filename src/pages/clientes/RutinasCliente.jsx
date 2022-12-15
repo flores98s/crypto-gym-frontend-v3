@@ -88,9 +88,18 @@ export default function RutinasCliente() {
           } else if (values.nombre.length < 3) {
             errors.nombre = "El nombre debe tener al menos 3 caracteres";
           }
+        //   verificar que no hay dos espacios seguidos
+        else if (values.nombre.includes("  ")) {
+            errors.nombre = "El nombre no puede tener dos o mas espacios seguidos";
+            }
+
           if (!values.tipoRutina) {
             errors.tipoRutina = "Requerido";
           }
+          else if (values.nombre.includes("  ")) {
+            errors.tipoRutina = "El tipo de rutina no puede tener dos o mas espacios seguidos";
+            } 
+
           if (!values.asignacionRutina) {
             errors.asignacionRutina = "Requerido";
           }
