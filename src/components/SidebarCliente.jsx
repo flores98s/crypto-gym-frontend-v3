@@ -70,18 +70,7 @@ function SidebarCliente() {
             className="flex items-center text-white"
           >
             <FaIcons.FaHome className="mr-3" />
-            TiposMembresias
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            exact
-            activeclassname="active"
-            to="/"
-            className="flex items-center text-white"
-          >
-            <FaIcons.FaHome className="mr-3" />
-            Descuento
+            Perfil
           </NavLink>
         </li>
       </ul>

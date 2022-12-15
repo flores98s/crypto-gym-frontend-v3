@@ -67,9 +67,9 @@ function Login() {
                   loginUser(values).then((data) => {
                     console.log(typeof data);
                     console.log(data);
-                    alert(
-                      JSON.stringify(data, null, 2)
-                    )
+                    // alert(
+                    //   JSON.stringify(data, null, 2)
+                    // )
                     if (data[0]){
                       cookies.set("auth", data[0].auth, { path: "/" });
                       cookies.set("id", data[0].data.id, {path: "/"});

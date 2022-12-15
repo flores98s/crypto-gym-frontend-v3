@@ -41,9 +41,9 @@ async function getUltimoNumeroFactura() {
 
 async function actualizarUltimaFactura(){
   let response = await fetch(
-    "https://cryptogymbackend-production.up.railway.app/api/actualizarUltimaFactura/1/1",
+    "https://cryptogymbackend-production.up.railway.app/api/actualizarUltimaFactura/2",
     {
-      method: "PUT",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
@@ -88,6 +88,7 @@ let setMembresia = (props) => {
 };
 
 let setFactura = (ultimoNumeroFactura, membresia, numerodetalleFactura) => {
+  console.log(numerodetalleFactura)
   let values = {
     fecha: new Date().toISOString().split("T")[0],
     hora: new Date().toLocaleTimeString(),
@@ -98,8 +99,9 @@ let setFactura = (ultimoNumeroFactura, membresia, numerodetalleFactura) => {
     membresia: parseInt(cookies.get("numeroMembresia") )+ 1,
   };
   // alert(JSON.stringify(values))
-  console.log(values.membresia);
+  alert("estos son los que van a la facura");
   alert(JSON.stringify(values))
+  console.log(values);
   fetch("https://cryptogymbackend-production.up.railway.app/api/factura/", {
     method: "POST",
     headers: {
@@ -125,6 +127,7 @@ function ModalExample(props) {
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
   const [ultimoNumeroFactura, setUltimoNumeroFactura] = useState();
+  const [detalleFactura_id , setDetalleFactura_id] = useState();
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -165,11 +168,10 @@ function ModalExample(props) {
               producto: props.membresia.id,
             }}
             onSubmit={(values, { setSubmitting }) => {
-              // console log values
-              console.log(values);
 
               setTimeout(() => {
                 console.log("Enviando datos", values);
+                alert(JSON.stringify(values, null, 2));
                 fetch(backendUrl, {
                   method: "POST",
                   headers: {
@@ -179,15 +181,18 @@ function ModalExample(props) {
                 })
                   .then((response) => response.json())
                   .then((data) => {
-                    console.log(data);
-                    let detalleFactura = data.id;
+                    console.log("Success:", data);
+                    console.log("id del detalle factura desde data", data.id);
+                    setDetalleFactura_id(data.id); 
+                    console.log("id del detalle factura desde hook", detalleFactura_id);
                     // wait 1 second before showing the next modal
                     setTimeout(() => {
                       setModal(false);
                     }, 1000);
                     
                     setMembresia(props);
-                    setFactura(ultimoNumeroFactura, numeroMembresia,detalleFactura);
+                    
+                    setFactura(ultimoNumeroFactura, numeroMembresia,data.id);
                     actualizarUltimaFactura();
                     window.location.href = "/facturapdf";
                   })

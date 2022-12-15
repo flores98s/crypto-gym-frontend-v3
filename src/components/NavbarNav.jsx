@@ -19,6 +19,10 @@ const cookies = new Cookies();
 
 function cerrarSession() {
   cookies.remove('auth', { path: '/' });
+  // remove all cookies
+  cookies.remove('id', { path: '/' });
+  cookies.remove('idFactura', { path: '/' });
+  cookies.remove('numeroMembresia', { path: '/' });
   window.location.href = '/';
 }
 

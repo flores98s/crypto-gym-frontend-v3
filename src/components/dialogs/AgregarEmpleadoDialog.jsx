@@ -15,6 +15,8 @@ import {
   Container,
 } from "reactstrap";
 import { Formik } from "formik";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 let backendUrl = "https://cryptogymbackend-production.up.railway.app/api/";
 
@@ -24,6 +26,27 @@ function ModalExample(props) {
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
   let [successMessage, setSuccessMessage] = useState();
+  let [generos, setGeneros] = useState([]);
+  let [documentos, setDocumentos] = useState([]);
+
+  let getDocumentos = async () => {
+    let response = await fetch(backendUrl + "tipodocumentocliente/");
+    let data = await response.json();
+    return data;
+  };
+
+  let getGeneros = async () => {
+    let response = await fetch(backendUrl + "tipogenero/");
+    let data = await response.json();
+    console.log(data);
+    return data;
+  };
+
+  useEffect(() => {
+    getGeneros().then((data) => setGeneros(data));
+    getDocumentos().then((data) => setDocumentos(data));
+    console.log(documentos);
+  }, []);
   let [formatoDocumento, setFormatoDocumento] = useState("XXXX-XXXX-XXXXX");
 
   const toggle = () => setModal(!modal);
@@ -327,19 +350,43 @@ function ModalExample(props) {
                       </FormGroup>
                       
                       <FormGroup>
-                        <Label for="genero_id">Genero</Label>
+                        <Label for="numerodocumento">Numero de Documento</Label>
                         <Input
-                          type="select"
-                          name="genero_id"
-                          id="genero_id"
+                          type="text"
+                          name="numerodocumento"
+                          id="numerodocumento"
+                          placeholder="Numero de Documento"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.genero_id}
-                        >
-                          <option value="">Seleccione</option>
-                          <option value={1}>Masculino</option>
-                          <option value={2}>Femenino</option>
-                        </Input>
+                          value={values.numerodocumento}
+                        />
+                        <div className="text-danger">
+                          {errors.numerodocumento &&
+                            touched.numerodocumento &&
+                            errors.numerodocumento}
+                        </div>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="genero">Genero</Label>
+                        <Autocomplete
+                          id="genero"
+                          name="genero"
+                          value={"23232"}
+                          options={generos}
+                          getOptionLabel={(option) => option.nombre}
+                          style={{ width: 300 }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Genero"
+                              variant="outlined"
+                            />
+                          )}
+                          onChange={(event, value) => {
+                            values.genero = value.id;
+                            console.log(values.genero);
+                          }}
+                        />
                         <div className="text-danger">
                           {errors.genero_id && touched.genero_id && errors.genero_id}
                         </div>
@@ -348,19 +395,27 @@ function ModalExample(props) {
                     </Col>
 
                     <FormGroup>
-                      <Label for="documento_id">Documento</Label>
-                      <Input
-                        type="select"
-                        name="documento_id"
-                        id="documento_id"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.documento_id}
-                      >
-                        <option value="">Seleccione</option>
-                        <option value="1">Identidad</option>
-                        <option value="2">Pasaporte</option>
-                      </Input>
+                      <Label for="documento">Documento</Label>
+                     <Autocomplete
+                          id="documento"
+                          name="documento"
+                          value={{id: 1, nombre: "Cedula de Ciudadania"}}
+                          options={documentos}
+                          getOptionLabel={(option) => option.nombreDocumento}
+                          style={{ width: 300 }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Documento"
+                              variant="outlined"
+                            />
+                          )}
+                          onChange={(event, value) => {
+                            values.documento = value.id;
+                            console.log(values.documento);
+                          }}
+                        />
+
                       <div className="text-danger">
                         {errors.documento_id &&
                           touched.documento_id &&

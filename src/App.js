@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
   Navigate,
+  
 } from "react-router-dom";
 import "./App.scss";
 import NavbarNav from "./components/NavbarNav";
@@ -26,6 +27,9 @@ import Planilla from "./pages/Planilla";
 import LoginEmpleado from "./pages/LoginEmpleado";
 import SidebarCliente from "./components/SidebarCliente";
 import MembresiaCliente from "./pages/clientes/Membresias";
+import ComprarMembresia from "./pages/clientes/ComprarMembresia";
+import FacturaPdf from "./pages/FacturaPdf";
+import RutinasCliente from "./pages/clientes/RutinasCliente";
 
 
 let auth = false;
@@ -38,8 +42,8 @@ if (authCookie) {
 let NavApp = () => {
   return (
     <div className="flexi">
-      <Sidebar />
-      {/* <SidebarCliente /> */}
+      {/* <Sidebar /> */}
+      <SidebarCliente />
       <div className="content w-100">
         <NavbarNav />
         <div className="m-5">
@@ -53,13 +57,16 @@ let NavApp = () => {
             <Route path="/cargo" element={<Cargo />} />
             <Route path="/asignacionrutina" element={<AsignacionRutina />} />
             <Route path="/factura" element={<Factura />} />
+            <Route path="/facturapdf/:id" element={<FacturaPdf />} />
             <Route path="/dietas" element={<Dietas/>} />
             <Route path="/parametrosfactura" element={<ParametrosFactura />} />
             <Route path="/empleadocargo" element={<EmpleadoCargo />} />
             <Route path="/detalleplanilla" element={<DetallePlanilla />} />
             <Route path="/planilla" element={<Planilla />} />
+            <Route path="/comprarMembresia" element={<ComprarMembresia />} />
             {/* esta es la ruta de cliente */}
             <Route path="/membresiacliente" element={<MembresiaCliente />} />
+            <Route path="/rutinascliente" element={<RutinasCliente />} />
           </Routes>
         </div>
       </div>

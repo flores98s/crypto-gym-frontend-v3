@@ -1,7 +1,27 @@
 import React from "react";
 import { Container, Row, Col, Table } from "reactstrap";
+import { useEffect, useState } from "react";
 
-function Factura() {
+async function getParametrosFactura() {
+  let response = await fetch(
+    "https://cryptogymbackend-production.up.railway.app/api/parametrosfactura/"
+  );
+  let data = await response.json();
+  return data;
+}
+
+
+function Factura(props) {
+  const [parametrosfactura, setParametrosFactura] = useState([]);
+
+  useEffect(() => {
+    getParametrosFactura().then((data) => {
+      setParametrosFactura(data[0]);
+      console.log(data[0]);
+    });
+  }, []);
+
+
   return (
     <div>
       <Container className="border rounded border-black p-2">
@@ -47,24 +67,24 @@ function Factura() {
           </Row>
         </main>
         <div className="text-center mt-2 mx-5">
-        <Table className="mt-2  p-2">
-          <thead>
-            <tr>
-              <td>Cantidad</td>
-              <td>Descripción</td>
-              <td>Precio Unitario</td>
-              <td>Total</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Plan Oro</td>
-              <td>L. 699.00</td>
-              <td>L. 699.00</td>
-            </tr>
-          </tbody>
-        </Table>
+          <Table className="mt-2  p-2">
+            <thead>
+              <tr>
+                <td>Cantidad</td>
+                <td>Descripción</td>
+                <td>Precio Unitario</td>
+                <td>Total</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Plan Oro</td>
+                <td>L. 699.00</td>
+                <td>L. 699.00</td>
+              </tr>
+            </tbody>
+          </Table>
         </div>
         <div className="text-center mt-2 mx-5">
           <Row>Subtotal: L. 699.00</Row>
@@ -73,20 +93,15 @@ function Factura() {
         </div>
 
         <footer className="mt-2 mx-5">
-            <Row className="text-center">
-                CAI: 2BD3FF-1AD127-8240A4-B0F43D-7FE4C1-98
-            </Row>
-            <Row className="text-center">
-                Fecha Limite de Emision: 2021-12-31
-            </Row>
-            <Row className="text-center">
-                Rango Autorizado: 000-001-01-00000001 - 000-001-01-00000050
-            </Row>
-            <Row className="text-center">
-                Factura Numero: 000-001-01-00000001
-            </Row>
+          <Row className="text-center">
+            CAI: {parametrosfactura.cai}
+          </Row>
+          <Row className="text-center">Fecha Limite de Emision: {parametrosfactura.fechaVencimiento}</Row>
+          <Row className="text-center">
+            Rango Autorizado: 000-001-01-000000{parametrosfactura.rangoInicial} - 000-001-01-000000{parametrosfactura.rangoFinal}
+          </Row>
+          <Row className="text-center">Factura Numero: 000-001-01-000000{parametrosfactura.ultimaFactura}</Row>
         </footer>
-
       </Container>
     </div>
   );
