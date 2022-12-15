@@ -6,7 +6,7 @@ import AgregarDietaDialog from "../components/dialogs/AgregarDietaDialog";
 let backendUrl =
     "http://cryptogymbackend-production.up.railway.app/api/dieta/";
 
-    export default function Dieta() {
+    function Dietas() {
     // set title to Empleados
     document.title = "Dieta";
     const [dietas, setDietas] = useState([]);
@@ -18,9 +18,11 @@ let backendUrl =
     };
 
     function eliminarDieta(id, nombre) {
-        let confirmar = window.confirm("¿Eliminar dieta: " + nombre + "?");
-        if (confirmar) {
-            fetch("http://cryptogymbackend-production.up.railway.app/api/dieta/" + id, {
+        let confirmDelete = window.confirm(
+            "¿Eliminar dieta: " + nombre + "?"
+            );
+        if (confirmDelete) {
+            fetch(backendUrl + id, {
                 method: "DELETE",
             }).then((response) => {
                 if (response.ok) {
@@ -33,7 +35,6 @@ let backendUrl =
                 }
             });
         }
-        
     }
 
     useEffect(() => {
@@ -54,13 +55,20 @@ let backendUrl =
                 <tbody>
                     {dietas.map((dieta) => (
                         <tr key={dieta.id}>
+                            <td>{dieta.id}</td>
                             <td>{dieta.nombre}</td>
                             <td>{dieta.asignacionDieta}</td>
                             <td className="flex items-center text-center">
-                                <button className="btn btn-danger btn-sm mx-2 w-75"
-                                    onClick={() => eliminarDieta(dieta.id, dieta.nombre)}>
-                                    Eliminar</button>
-                                <AgregarDietaDialog dieta={dieta} tipo={'editar'} />
+                                <button 
+                                    className="btn btn-danger btn-sm mx-2 w-75"
+                                    onClick={() => eliminarDieta(dieta.id, dieta.nombre)}
+                                    >
+                                    Eliminar
+                                    </button>
+                                <AgregarDietaDialog 
+                                dieta={dieta} 
+                                tipo={"editar"} 
+                                />
                             </td>
                         </tr>
                     ))}
@@ -69,4 +77,4 @@ let backendUrl =
         </div>
     );
 }
-
+export default Dietas;

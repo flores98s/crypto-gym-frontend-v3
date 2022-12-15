@@ -263,23 +263,7 @@ function ModalExample(props) {
                             errors.telefono}
                         </div>
                       </FormGroup>
-                      <FormGroup>
-                        <Label for="numerodocumento">Numero de Documento</Label>
-                        <Input
-                          type="text"
-                          name="numerodocumento"
-                          id="numerodocumento"
-                          placeholder="Numero de Documento"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.numerodocumento}
-                        />
-                        <div className="text-danger">
-                          {errors.numerodocumento &&
-                            touched.numerodocumento &&
-                            errors.numerodocumento}
-                        </div>
-                      </FormGroup>
+                      
                       <FormGroup>
                         <Label for="genero">Genero</Label>
                         <Input
@@ -319,6 +303,23 @@ function ModalExample(props) {
                           errors.documento}
                       </div>
                     </FormGroup>
+                    <FormGroup>
+                        <Label for="numerodocumento">Numero de Documento</Label>
+                        <Input
+                          type="text"
+                          name="numerodocumento"
+                          id="numerodocumento"
+                          placeholder={values.documento === "1" ? "0000-0000-00000" : "X000000"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.numerodocumento}
+                        />
+                        <div className="text-danger">
+                          {errors.numerodocumento &&
+                            touched.numerodocumento &&
+                            errors.numerodocumento}
+                        </div>
+                      </FormGroup>
                     <FormGroup className="mt-2">
                       <Button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? "Enviando..." : "Enviar"}

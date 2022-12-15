@@ -54,12 +54,19 @@ function ModalExample(props) {
               const errors = {};
               if (!values.nombreCargo) {
                 errors.nombreCargo = "Requerido";
-              }
+              } else if (values.nombreCargo.length > 50) {
+                errors.nombreCargo = "El nombre del cargo es muy largo";
+              } else if (values.nombreCargo.length < 3) {
+                errors.nombreCargo = "El nombre del cargo es muy corto";
               if (!values.salario) {
                 errors.salario = "Requerido";
+              } else if (isNaN(values.salario)) {
+                errors.salario = "Debe ser un número";
+              } else if (values.salario < 500) {
+                errors.salario = "El salario debe ser mayor a Lps.500";
               }
               return errors;
-            }}
+            }}}
             onSubmit={(values, { setSubmitting }) => {
               if (props.tipo === "editar") {
                 fetch(backendUrl + props.cargo.id, {

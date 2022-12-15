@@ -62,6 +62,8 @@ function ModalExample(props) {
                                 values.cai.length > 50
                             ) {
                                 errors.cai = "Debe tener entre 3 y 50 caracteres";
+                            } else if (!/^[a-zA-Z0-9]+$/.test(values.cai)) {
+                                errors.cai = "Solo letras y números";
                             }
                             if (!values.fechaEmision) {
                                 errors.fechaEmision = "Requerido";
@@ -98,7 +100,7 @@ function ModalExample(props) {
                                         console.log(data);
                                         setMessages({
                                         ok: true,
-                                        messages: "Parametro editado correctamente",
+                                        messages: "Parámetro editado correctamente",
                                     });
 
                                     setTimeout(() => {
@@ -122,7 +124,7 @@ function ModalExample(props) {
                                         console.log(data);
                                         setMessages({
                                             ok: true,
-                                            message: "Parametro agregado correctamente",
+                                            message: "Parámetro agregado correctamente",
                                         });
 
                                         setTimeout(() => {
@@ -176,7 +178,7 @@ function ModalExample(props) {
                                     {errors.cai && touched.cai && errors.cai}
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label for="fechaEmision">Fecha de Emision</Label>
+                                    <Label for="fechaEmision">Fecha de Emisión</Label>
                                     <Input
                                         type="date"
                                         name="fechaEmision"
@@ -236,7 +238,7 @@ function ModalExample(props) {
                                     </div>
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label for="codigoSucursal">Codigo de Sucursal</Label>
+                                    <Label for="codigoSucursal">Código de Sucursal</Label>
                                     <Input
                                         type="text"
                                         name="codigoSucursal"

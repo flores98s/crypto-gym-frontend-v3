@@ -131,6 +131,10 @@ console.log(props.dieta);
                       error: true,
                       message: "Error al agregar la dieta",
                     });
+                    setTimeout(() => {
+                      toggle();
+                    }, 2000);
+                    setMessages({});
                   });
               }
             }}

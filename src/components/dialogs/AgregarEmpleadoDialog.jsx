@@ -24,6 +24,7 @@ function ModalExample(props) {
   const [closeAll, setCloseAll] = useState(false);
   const [empleado, setEmpleado] = useState();
   let [successMessage, setSuccessMessage] = useState();
+  let [formatoDocumento, setFormatoDocumento] = useState("XXXX-XXXX-XXXXX");
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -59,35 +60,39 @@ function ModalExample(props) {
               numerodocumento: props.empleado
                 ? props.empleado.numerodocumento
                 : "",
-              genero: props.empleado ? props.empleado.genero : "",
-              documento: props.empleado ? props.empleado.documento : "",
+              genero_id: props.empleado ? props.empleado.genero : "",
+              documento_id: props.empleado ? props.empleado.documento : "",
             }}
             validate={(values) => {
               const errors = {};
               if (!values.nombres) {
-                errors.nombres = "Requirido";
+                errors.nombres = "Requerido";
               } else if (
                 values.nombres.length < 3 ||
                 values.nombres.length > 30
               ) {
                 errors.nombres = "Debe tener al menos 3 caracteres y máximo 30";
+              } else if (!/^[a-zA-Z ]+$/.test(values.nombres)) {
+                errors.nombres = "Solo se permiten letras";
               }
               if (!values.apellidos) {
-                errors.apellidos = "Requirido";
+                errors.apellidos = "Requerido";
               } else if (
                 values.apellidos.length < 3 ||
                 values.apellidos.length > 30
               ) {
                 errors.apellidos =
                   "Debe tener al menos 3 caracteres y máximo 30";
+              } else if (!/^[a-zA-Z ]+$/.test(values.apellidos)) {
+                errors.apellidos = "Solo se permiten letras";
               }
               if (!values.clave) {
-                errors.clave = "Requirido";
+                errors.clave = "Requerido";
               } else if (values.clave.length < 8) {
                 errors.clave = "Debe tener al menos 8 caracteres";
               }
               if (!values.fechaNacimiento) {
-                errors.fechaNacimiento = "Requirido";
+                errors.fechaNacimiento = "Requerido";
               }
               // check if fechaNacimiento is a valid date
               else if (isNaN(Date.parse(values.fechaNacimiento))) {
@@ -114,19 +119,19 @@ function ModalExample(props) {
               ) {
                 errors.correo = "Correo inválido";
               }
-              if (
-                // check regex ^[9|3|8][1-9]{7}$
-                !/^[2|9|3|8][1-9]{7}$/i.test(values.telefono)
-              ) {
-                errors.telefono =
-                  "Telefono inválido debe de comenzar con 2, 9, 3 u 8";
-              } else if (!values.telefono) {
-                errors.telefono = "Requerido";
-              } else if (
+               if (
                 values.telefono.length < 8 ||
                 values.telefono.length > 8
               ) {
                 errors.telefono = "Debe tener 8 caracteres";
+              } else if (!values.telefono) {
+                errors.telefono = "Requerido";
+              } else if (
+                // check regex ^[9|3|8][1-9]{7}$
+                !/^[2|9|3|8][1-9]{7}$/i.test(values.telefono)
+              ) {
+                errors.telefono =
+                  "Teléfono inválido debe de comenzar con 2, 9, 3 u 8";
               }
               if (!values.numerodocumento) {
                 errors.numerodocumento = "Requerido";
@@ -136,11 +141,11 @@ function ModalExample(props) {
               ) {
                 errors.numerodocumento = "Debe tener 15 caracteres";
               }
-              if (!values.genero) {
-                errors.genero = "Requerido";
+              if (!values.genero_id) {
+                errors.genero_id = "Requerido";
               }
-              if (!values.documento) {
-                errors.documento = "Requerido";
+              if (!values.documento_id) {
+                errors.documento_id = "Requerido";
               }
               return errors;
             }}
@@ -152,7 +157,7 @@ function ModalExample(props) {
                   props.empleado.id;
                 console.log(url);
                 alert(JSON.stringify(values, null, 2));
-                fetch(backendUrl + "empleado/" + props.empleado.id + "/", {
+                fetch(url, {
                   method: "PUT",
                   headers: {
                     "Content-Type": "application/json",
@@ -163,6 +168,9 @@ function ModalExample(props) {
                   .then((data) => {
                     console.log(data);
                     setSuccessMessage("Empleado editado con éxito");
+                    setTimeout(() => {
+                      toggle();
+                    }, 2000);
                   })
                   .catch((error) => {
                     console.error("Error:", error);
@@ -172,6 +180,7 @@ function ModalExample(props) {
                   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
                 // alert values
                 alert(JSON.stringify(values, null, 2));
+                console.log(values);
                 fetch(url, {
                   method: "POST",
                   headers: {
@@ -182,6 +191,10 @@ function ModalExample(props) {
                   .then((response) => response.json())
                   .then((data) => {
                     console.log(data);
+                    setSuccessMessage("Empleado creado con éxito");
+                    setTimeout(() => {
+                      toggle();
+                    }, 2000);
                   })
                   .catch((error) => {
                     console.error("Error:", error);
@@ -312,13 +325,55 @@ function ModalExample(props) {
                             errors.telefono}
                         </div>
                       </FormGroup>
+                      
                       <FormGroup>
+                        <Label for="genero_id">Genero</Label>
+                        <Input
+                          type="select"
+                          name="genero_id"
+                          id="genero_id"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.genero_id}
+                        >
+                          <option value="">Seleccione</option>
+                          <option value={1}>Masculino</option>
+                          <option value={2}>Femenino</option>
+                        </Input>
+                        <div className="text-danger">
+                          {errors.genero_id && touched.genero_id && errors.genero_id}
+                        </div>
+                      </FormGroup>
+
+                    </Col>
+
+                    <FormGroup>
+                      <Label for="documento_id">Documento</Label>
+                      <Input
+                        type="select"
+                        name="documento_id"
+                        id="documento_id"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.documento_id}
+                      >
+                        <option value="">Seleccione</option>
+                        <option value="1">Identidad</option>
+                        <option value="2">Pasaporte</option>
+                      </Input>
+                      <div className="text-danger">
+                        {errors.documento_id &&
+                          touched.documento_id &&
+                          errors.documento_id}
+                      </div>
+                    </FormGroup>
+                    <FormGroup>
                         <Label for="numerodocumento">Numero de Documento</Label>
                         <Input
                           type="text"
                           name="numerodocumento"
                           id="numerodocumento"
-                          placeholder="Numero de Documento"
+                          placeholder={values.documento_id === "1" ? "0000-0000-00000" : "X000000"}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.numerodocumento}
@@ -329,46 +384,6 @@ function ModalExample(props) {
                             errors.numerodocumento}
                         </div>
                       </FormGroup>
-                      <FormGroup>
-                        <Label for="genero">Genero</Label>
-                        <Input
-                          type="select"
-                          name="genero"
-                          id="genero"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.genero}
-                        >
-                          <option value="">Seleccione</option>
-                          <option value="1">Masculino</option>
-                          <option value="2">Femenino</option>
-                        </Input>
-                        <div className="text-danger">
-                          {errors.genero && touched.genero && errors.genero}
-                        </div>
-                      </FormGroup>
-                    </Col>
-
-                    <FormGroup>
-                      <Label for="documento">Documento</Label>
-                      <Input
-                        type="select"
-                        name="documento"
-                        id="documento"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.documento}
-                      >
-                        <option value="">Seleccione</option>
-                        <option value="2">Identidad</option>
-                        <option value="1">Pasaporte</option>
-                      </Input>
-                      <div className="text-danger">
-                        {errors.documento &&
-                          touched.documento &&
-                          errors.documento}
-                      </div>
-                    </FormGroup>
                     <FormGroup className="mt-2">
                       <Button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? "Enviando..." : "Enviar"}
