@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 async function getParametrosFactura() {
   let response = await fetch(
-    "https://cryptogymbackend-production.up.railway.app/api/parametrosfactura/"
+    "https://cryptogymbackend-production.up.railway.app/api/getparametrosfactura/"
   );
   let data = await response.json();
   return data;

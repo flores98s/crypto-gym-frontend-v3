@@ -85,7 +85,7 @@ export default function RutinasCliente() {
         //   Modificar los nombres de los campos ------------------------------------
           if (!values.nombre) {
             errors.nombre = "Requerido";
-          } else if (values.nombre.length < 3) {
+          } else if (values.nombre.length < 3 || values.nombre.length > 20) {
             errors.nombre = "El nombre debe tener al menos 3 caracteres";
           }
         //   verificar que no hay dos espacios seguidos

@@ -3,7 +3,6 @@ import {
   Route,
   Routes,
   Navigate,
-  
 } from "react-router-dom";
 import "./App.scss";
 import NavbarNav from "./components/NavbarNav";
@@ -30,6 +29,9 @@ import MembresiaCliente from "./pages/clientes/Membresias";
 import ComprarMembresia from "./pages/clientes/ComprarMembresia";
 import FacturaPdf from "./pages/FacturaPdf";
 import RutinasCliente from "./pages/clientes/RutinasCliente";
+import ProductList from "./pages/productos/ProductList";
+import CarritoCompras from "./pages/productos/CarritoCompras";
+import { CartProvider } from "./pages/productos/context/CartContext";
 
 
 let auth = false;
@@ -41,36 +43,43 @@ if (authCookie) {
 
 let NavApp = () => {
   return (
-    <div className="flexi">
-      {/* <Sidebar /> */}
-      <SidebarCliente />
-      <div className="content w-100">
-        <NavbarNav />
-        <div className="m-5">
-          <Routes>
-            <Route path="/clientes" element={<Clientes />} />
-            <Route path="/" element={<Home />} exact={true} />
-            <Route path="/rutinas" element={<Rutinas />} />
-            <Route path="/empleado" element={<Empleados />} />
-            <Route path="/medidas" element={<Medidas />} />
-            <Route path="/tiposmembresias" element={<TiposMembresias />} />
-            <Route path="/cargo" element={<Cargo />} />
-            <Route path="/asignacionrutina" element={<AsignacionRutina />} />
-            <Route path="/factura" element={<Factura />} />
-            <Route path="/facturapdf/:id" element={<FacturaPdf />} />
-            <Route path="/dietas" element={<Dietas/>} />
-            <Route path="/parametrosfactura" element={<ParametrosFactura />} />
-            <Route path="/empleadocargo" element={<EmpleadoCargo />} />
-            <Route path="/detalleplanilla" element={<DetallePlanilla />} />
-            <Route path="/planilla" element={<Planilla />} />
-            <Route path="/comprarMembresia" element={<ComprarMembresia />} />
-            {/* esta es la ruta de cliente */}
-            <Route path="/membresiacliente" element={<MembresiaCliente />} />
-            <Route path="/rutinascliente" element={<RutinasCliente />} />
-          </Routes>
+    <CartProvider>
+      <div className="flexi">
+        {/* <Sidebar /> */}
+        <SidebarCliente />
+        <div className="content w-100">
+          <NavbarNav />
+          <div className="m-5">
+            <Routes>
+              <Route path="/clientes" element={<Clientes />} />
+              <Route path="/" element={<Home />} exact={true} />
+              <Route path="/rutinas" element={<Rutinas />} />
+              <Route path="/empleado" element={<Empleados />} />
+              <Route path="/medidas" element={<Medidas />} />
+              <Route path="/tiposmembresias" element={<TiposMembresias />} />
+              <Route path="/cargo" element={<Cargo />} />
+              <Route path="/asignacionrutina" element={<AsignacionRutina />} />
+              <Route path="/factura" element={<Factura />} />
+              <Route path="/facturapdf/:id" element={<FacturaPdf />} />
+              <Route path="/dietas" element={<Dietas />} />
+              <Route
+                path="/parametrosfactura"
+                element={<ParametrosFactura />}
+              />
+              <Route path="/empleadocargo" element={<EmpleadoCargo />} />
+              <Route path="/detalleplanilla" element={<DetallePlanilla />} />
+              <Route path="/planilla" element={<Planilla />} />
+              <Route path="/comprarMembresia" element={<ComprarMembresia />} />
+              {/* esta es la ruta de cliente */}
+              <Route path="/membresiacliente" element={<MembresiaCliente />} />
+              <Route path="/rutinascliente" element={<RutinasCliente />} />
+              <Route path="/tienda" element={<ProductList />} />
+              <Route path="/carrito" element={<CarritoCompras />} />
+            </Routes>
+          </div>
         </div>
       </div>
-    </div>
+    </CartProvider>
   );
 };
 

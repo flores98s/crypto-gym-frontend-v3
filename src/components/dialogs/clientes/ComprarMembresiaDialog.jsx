@@ -33,13 +33,13 @@ let backendUrl =
 
 async function getUltimoNumeroFactura() {
   let response = await fetch(
-    "https://cryptogymbackend-production.up.railway.app/api/parametrosfactura/"
+    "https://cryptogymbackend-production.up.railway.app/api/getparametrosfactura/"
   );
   let data = await response.json();
   return data;
 }
 
-async function actualizarUltimaFactura(){
+async function actualizarUltimaFactura() {
   let response = await fetch(
     "https://cryptogymbackend-production.up.railway.app/api/actualizarUltimaFactura/2",
     {
@@ -53,14 +53,13 @@ async function actualizarUltimaFactura(){
   return data;
 }
 
-
 let setMembresia = (props) => {
   // console.log(props.membresia.id);
   let values = {
     // fechaInicio: (new Date()).toLocaleDateString(),
     // fechaFinal: (dateWithMonthsDelay(1)).toLocaleDateString(),
-    fechaInicio: (new Date()).toISOString().split("T")[0],
-    fechaFinal: (dateWithMonthsDelay(1)).toISOString().split("T")[0],
+    fechaInicio: new Date().toISOString().split("T")[0],
+    fechaFinal: dateWithMonthsDelay(1).toISOString().split("T")[0],
     tipoMembresia: props.membresia.id,
     descuento: null,
     cliente: idCliente,
@@ -79,29 +78,48 @@ let setMembresia = (props) => {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
-      cookies.set("numeroMembresia", data.id, { path: "/" });
       
+      cookies.set("numeroMembresia", data.id, { path: "/" });
+      console.log(cookies.get("numeroMembresia"));
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 };
 
-let setFactura = (ultimoNumeroFactura, membresia, numerodetalleFactura) => {
-  console.log(numerodetalleFactura)
+async function getUltimoParametroFactura() {
+  let response = await fetch(
+    "https://cryptogymbackend-production.up.railway.app/api/getparametrosfactura/"
+  );
+  let data = await response.json();
+  return data;
+}
+
+let setFactura = (ultimoNumeroFactura, membresia, numerodetalleFactura,parametrosFactura_id) => {
+  console.log(parseInt(cookies.get("numeroMembresia")) + 1,);
   let values = {
-    fecha: new Date().toISOString().split("T")[0],
-    hora: new Date().toLocaleTimeString(),
-    numeroFactura: ultimoNumeroFactura + 1,
-    detalleFactura: numerodetalleFactura,
-    cliente: idCliente,
-    parametrosFactura: 1,
-    membresia: parseInt(cookies.get("numeroMembresia") )+ 1,
+    // fecha: new Date().toISOString().split("T")[0],
+    // hora: new Date().toLocaleTimeString(),
+    // numeroFactura: ultimoNumeroFactura + 1,
+    // detalleFactura: numerodetalleFactura,
+    // cliente: idCliente,
+    // parametrosFactura: parametrosFactura_id,
+    // membresia: parseInt(cookies.get("numeroMembresia")) + 1,
+      fecha: new Date().toISOString().split("T")[0],
+      hora: new Date().toLocaleTimeString(),
+      numeroFactura: ultimoNumeroFactura + 1,
+      detalleFactura: numerodetalleFactura,
+      cliente: idCliente,
+      parametrosFactura: parametrosFactura_id,
+      membresia: parseInt(cookies.get("numeroMembresia")) + 1,
+
+
   };
   // alert(JSON.stringify(values))
-  alert("estos son los que van a la facura");
-  alert(JSON.stringify(values))
+  alert("Procesando Factura");
+  alert("Factura Procesada");
   console.log(values);
+  alert(JSON.stringify(values));
   fetch("https://cryptogymbackend-production.up.railway.app/api/factura/", {
     method: "POST",
     headers: {
@@ -111,7 +129,7 @@ let setFactura = (ultimoNumeroFactura, membresia, numerodetalleFactura) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Success:", data);
+      console.log("data recibida de factura:", data);
       alert("Membresia comprada con exito");
       cookies.set("idFactura", data.id, { path: "/" });
     })
@@ -127,7 +145,9 @@ function ModalExample(props) {
   const [nestedModal, setNestedModal] = useState(false);
   const [closeAll, setCloseAll] = useState(false);
   const [ultimoNumeroFactura, setUltimoNumeroFactura] = useState();
-  const [detalleFactura_id , setDetalleFactura_id] = useState();
+  const [detalleFactura_id, setDetalleFactura_id] = useState();
+  const [parametrosFactura_id, setParametrosFactura_id] = useState();
+  const [isLoadingParametrosFactura, setIsLoadingParametrosFactura] = useState(true);
 
   const toggle = () => setModal(!modal);
   const toggleNested = () => {
@@ -141,8 +161,14 @@ function ModalExample(props) {
 
   useEffect(() => {
     getUltimoNumeroFactura().then((data) => {
-      setUltimoNumeroFactura(data[0].ultimaFactura);
-      console.log(data[0].ultimaFactura);
+      console.log(data.data.ultimaFactura);
+      setUltimoNumeroFactura(data.data.ultimaFactura);
+    });
+
+    getUltimoParametroFactura().then((data) => {
+      console.log(data.data.id);
+      setParametrosFactura_id(data.data.id);
+
     });
   }, []);
 
@@ -168,10 +194,9 @@ function ModalExample(props) {
               producto: props.membresia.id,
             }}
             onSubmit={(values, { setSubmitting }) => {
-
               setTimeout(() => {
                 console.log("Enviando datos", values);
-                alert(JSON.stringify(values, null, 2));
+                alert("Comprobando datos");
                 fetch(backendUrl, {
                   method: "POST",
                   headers: {
@@ -183,18 +208,21 @@ function ModalExample(props) {
                   .then((data) => {
                     console.log("Success:", data);
                     console.log("id del detalle factura desde data", data.id);
-                    setDetalleFactura_id(data.id); 
-                    console.log("id del detalle factura desde hook", detalleFactura_id);
+                    setDetalleFactura_id(data.id);
+                    console.log(
+                      "id del detalle factura desde hook",
+                      detalleFactura_id
+                    );
                     // wait 1 second before showing the next modal
                     setTimeout(() => {
                       setModal(false);
                     }, 1000);
-                    
+
                     setMembresia(props);
-                    
-                    setFactura(ultimoNumeroFactura, numeroMembresia,data.id);
+
+                    setFactura(ultimoNumeroFactura, numeroMembresia, data.id, parametrosFactura_id);
                     actualizarUltimaFactura();
-                    window.location.href = "/facturapdf";
+                    window.location.href = "/membresiacliente";
                   })
                   .catch((error) => {
                     console.error("Error:", error);

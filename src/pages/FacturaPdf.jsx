@@ -96,7 +96,7 @@ function FacturaPdf({}) {
             </header>
             <main className="mx-5">
               <Row>
-                <Text>CAI: {"2BD3FF-1AD127-8240A4-B0F43D-7FE4C1-97"} </Text>
+                <Text>CAI: {factura.parametrosFactura.cai} </Text>
                 <Text>RTN: 0801-2000-00561</Text>
                 <Text>Fecha: {factura.fecha}</Text>
                 <Text>Hora: {factura.hora}</Text>
@@ -122,7 +122,7 @@ function FacturaPdf({}) {
                   Cantidad: {factura.detalleFactura.cantidad}
                 </Text>
                 <Text>
-                  Descripción: {" " + factura.tipoMembresia.nombreMembresia}
+                  Producto: {" " + factura.producto.nombre}
                 </Text>
                 <Text>
                   Precio Unitario: L.{parseFloat(factura.detalleFactura.precio).toFixed(2)}
@@ -151,7 +151,7 @@ function FacturaPdf({}) {
                 {/* Fecha Limite de Emision: {parametrosfactura.fechaVencimiento} */}
               </Text>
               <Text className="text-center">
-                Rango Autorizado: 000-001-01-000000 - 50
+                Rango Autorizado: 000-001-01-{addLeadingZeros(factura.parametrosFactura.rangoInicial, 6)}  -  000-001-01-{addLeadingZeros(factura.parametrosFactura.rangoFinal, 6)}
                 {/* {parametrosfactura.rangoInicial} - 000-001-01-000000 */}
                 {/* {parametrosfactura.rangoFinal} */}
               </Text>

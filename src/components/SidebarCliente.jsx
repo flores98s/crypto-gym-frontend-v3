@@ -66,6 +66,17 @@ function SidebarCliente() {
           <NavLink
             exact
             activeclassname="active"
+            to="/tienda"
+            className="flex items-center text-white"
+          >
+            <FaIcons.FaStore className="mr-3" />
+            Tienda
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            activeclassname="active"
             to="/membresiacliente"
             className="flex items-center text-white"
           >
