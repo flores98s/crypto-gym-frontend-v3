@@ -46,7 +46,7 @@ let NavApp = () => {
     <CartProvider>
       <div className="flexi">
         {/* <Sidebar /> */}
-        <SidebarCliente />
+        <Sidebar />
         <div className="content w-100">
           <NavbarNav />
           <div className="m-5">
@@ -91,7 +91,7 @@ function App() {
           <Route path="*" element={<NavApp />} />
         ) : (
           // <Routes>
-          <Route path="*" element={<Login />} />
+          <Route path="*" element={<LoginEmpleado />} />
           // <Route path="/LoginEmpleado" element={<loginEmpleado />} />
           // </Routes>
         )}
