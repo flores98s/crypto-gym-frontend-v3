@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import {Table} from 'react-bootstrap'
+import Exportar from '../components/Exportar';
 
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/rutina/";
@@ -25,6 +26,7 @@ function Rutinas() {
   return (
     <div>
         <h1>Rutinas</h1>
+        <Exportar nombreTabla="rutinas" />
         <Table>
             <thead>
                 <tr>

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarAsignacionRutinaDialog from "../components/dialogs/AgregarAsignacionRutinaDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/asignacionrutina/";
@@ -42,6 +43,7 @@ function AsignacionRutinas() {
         <div>
             <h1>Asignación de Rutinas</h1>
             <AgregarAsignacionRutinaDialog />
+            <Exportar nombreTabla="asignaciones" />
             <Table>
                 <thead>
                     <tr>

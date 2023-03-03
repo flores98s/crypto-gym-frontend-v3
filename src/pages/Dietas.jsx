@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarDietaDialog from "../components/dialogs/AgregarDietaDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
     "http://cryptogymbackend-production.up.railway.app/api/dieta/";
@@ -44,6 +45,7 @@ let backendUrl =
         <div>
             <h1>Dietas</h1>
             <AgregarDietaDialog />
+            <Exportar nombreTabla="dietas" />
             <Table>
                 <thead>
                     <tr>

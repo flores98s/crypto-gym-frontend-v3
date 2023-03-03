@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarEmpleadoDialog from "../components/dialogs/AgregarEmpleadoDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/empleado/";
@@ -18,22 +19,6 @@ function Empleados() {
   const [empleados, setEmpleados] = useState([]);
   const [generos, setGeneros] = useState([]);
   const [tipoDocumentoClientes, setTipoDocumentoClientes] = useState([]);
-
-  let exportarCSV = () => {
-    console.log("exportar csv");
-    let response = fetch("https://cryptogymbackend-production.up.railway.app/api/exportar/csv/empleados");
-    response.then((data) => data.json()).then((data) => {
-      console.log(data);
-    });
-  };
-
-  let exportarPDF = () => {
-    console.log("exportar pdf");
-    let response = fetch("https://cryptogymbackend-production.up.railway.app/api/exportar/pdf/empleados");
-    response.then((data) => data.json()).then((data) => {
-      console.log(data);
-    });
-  };
 
 
   let getEmpleados = async () => {
@@ -84,13 +69,8 @@ function Empleados() {
         generos={generos}
         tipoDocumentoClientes={tipoDocumentoClientes}
       />
-      {/* agregar botones de exportar csv y pdf */}
-      <a variant="primary" className="mb-3"  href="https://cryptogymbackend-production.up.railway.app/api/exportar/csv/empleados"  >
-        Exportar a CSV
-      </a>
-      <a variant="primary" className="mb-3 mx-2"  href="https://cryptogymbackend-production.up.railway.app/api/exportar/pdf/empleados"   >
-        Exportar a PDF
-      </a>
+      <Exportar nombreTabla="empleados" />
+      
 
       <Table>
         <thead>

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarParametroFacturaDialog from "../components/dialogs/AgregarParametrosFacturaDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/parametrosfactura/";
@@ -43,6 +44,7 @@ function ParametrosFactura() {
         <div>
             <h1>Parámetros de Factura</h1>
             <AgregarParametroFacturaDialog />
+            <Exportar nombreTabla="parametrosfactura" />
             <Table>
                 <thead>
                     <tr>

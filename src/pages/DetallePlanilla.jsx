@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarDetallePlanillaDialog from "../components/dialogs/AgregarDetallePlanillaDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/detalleplanilla/";
@@ -42,6 +43,7 @@ function DetallePlanilla() {
         <div>
             <h1>Detalle Planilla</h1>
             <AgregarDetallePlanillaDialog />
+            <Exportar nombreTabla="detalleplanillas" />
             <Table>
                 <thead>
                     <tr>

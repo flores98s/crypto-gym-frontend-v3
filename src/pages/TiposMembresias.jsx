@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarTipoMembresiaDialog from "../components/dialogs/AgregarTipoMembresiaDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/tiposmembresia/";
@@ -43,6 +44,7 @@ function TiposMembresias() {
         <div>
             <h1>Tipos de Membresías</h1>
             <AgregarTipoMembresiaDialog />
+            <Exportar nombreTabla="tiposmembresia" />
             <Table>
                 <thead>
                     <tr>

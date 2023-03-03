@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarCargoDialog from "../components/dialogs/AgregarCargoDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
     "https://cryptogymbackend-production.up.railway.app/api/cargo/";
@@ -41,6 +42,7 @@ function Cargos() {
         <div>
             <h1>Cargos</h1>
             <AgregarCargoDialog />
+            <Exportar nombreTabla="cargos" />
             <Table>
                 <thead>
                     <tr>

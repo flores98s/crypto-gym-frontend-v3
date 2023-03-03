@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import AgregarMedidaDialog from "../components/dialogs/AgregarMedidaDialog";
+import Exportar from "../components/Exportar";
 
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/medidas/";
@@ -39,6 +40,7 @@ function Medidas() {
     <div>
       <h1>Medidas</h1>
       <AgregarMedidaDialog />
+      <Exportar nombreTabla="medidas" />
       <Table>
         <thead>
           <tr>

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import AgregarClienteDialog from "../components/dialogs/AgregarClienteDialog";
-
+import Exportar from "../components/Exportar";
 let backendUrl =
   "https://cryptogymbackend-production.up.railway.app/api/cliente/";
 
@@ -39,6 +39,7 @@ function Clientes() {
     <div>
       <h1>Clientes</h1>
       <AgregarClienteDialog />
+      <Exportar nombreTabla="clientes" />
       <Table>
         <thead>
           <tr>
